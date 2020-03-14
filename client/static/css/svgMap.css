@@ -1,5 +1,18 @@
 html, body {margin: 0; height: 100%; overflow: hidden}
 
+body {
+  background: url("../img/ocean.jpg");
+  background-size: cover;
+}
+
+#svgMap {
+  z-index: 103;
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 #svgMap-countries {
   background: url("../img/topographical.jpg");
   -webkit-clip-path: url(#countries);
@@ -7,7 +20,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 1;
   background-size: cover;
   pointer-events:none;
 }
@@ -18,8 +31,11 @@ html, body {margin: 0; height: 100%; overflow: hidden}
   height: 100%;
   padding-top: 0;
   overflow: hidden;
-  background: url("../img/ocean.jpg");
   color: #111;
+}
+
+.svgMap-map-wrapper.ocean {
+  background: url("../img/ocean.jpg");
 }
 
 .svgMap-map-wrapper * {
@@ -100,7 +116,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .svgMap-map-wrapper .svgMap-country {
   cursor: pointer;
   stroke: #fff;
-  stroke-width: 1;
+  stroke-width: 0.2px;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
   transition: fill .2s, stroke .2s;
@@ -109,7 +125,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .svgMap-map-wrapper .svgMap-country:hover, .svgMap-map-wrapper .svgMap-country.svgMap-active {
   z-index: 999;
-  stroke: #333;
+  stroke: #fff;
+  stroke-width: 1px;
 }
 
 .svgMap-map-wrapper .svgMap-country.svgMap-active {

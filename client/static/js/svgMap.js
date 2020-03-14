@@ -1754,14 +1754,16 @@ module.exports = {
         matrix.f +
         ")";
 
+    window.transform = s;
     element.setAttributeNS(null, "transform", s);
-    if ("transform" in element.style) {
-      element.style.transform = s;
-    } else if ("-ms-transform" in element.style) {
-      element.style["-ms-transform"] = s;
-    } else if ("-webkit-transform" in element.style) {
-      element.style["-webkit-transform"] = s;
-    }
+    // document.getElementById("data-points").setAttributeNS(null, "transform", s);
+    // if ("transform" in element.style) {
+    //   element.style.transform = s;
+    // } else if ("-ms-transform" in element.style) {
+    //   element.style["-ms-transform"] = s;
+    // } else if ("-webkit-transform" in element.style) {
+    //   element.style["-webkit-transform"] = s;
+    // }
 
     // IE has a bug that makes markers disappear on zoom (when the matrix "a" and/or "d" elements change)
     // see http://stackoverflow.com/questions/17654578/svg-marker-does-not-work-in-ie9-10
@@ -2295,7 +2297,7 @@ svgMap.prototype.init = function (options) {
     // Data colors
     colorMax: '#CC0033',
     colorMin: '#FFE5D9',
-    colorNoData: '#E2E2E2',
+    colorNoData: 'rgba(0, 0, 0, 0)',
 
     // The flag type can be 'image' or 'emoji'
     flagType: 'image',
@@ -2871,6 +2873,7 @@ svgMap.prototype.createMap = function () {
   this.createTooltip();
 
   // Create map wrappers
+  console.log(this.isClipPath)
   this.mapWrapper = this.createElement('div', 'svgMap-map-wrapper', this.wrapper);
   this.mapImage = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   this.mapImage.setAttribute('viewBox', '0 0 2000 1001');
