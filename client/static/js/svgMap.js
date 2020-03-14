@@ -2613,9 +2613,12 @@ svgMap.prototype.applyData = function (data) {
       return;
     }
     var value = Math.max(min, parseInt(data.values[countryID][data.applyData], 10));
-    var ratio = Math.max(0, Math.min(1, (value - min) / (max - min)));
-    var color = this.getColor(this.options.colorMax, this.options.colorMin, ratio);
-    element.setAttribute('fill', color);
+    // var ratio = Math.max(0, Math.min(1, (value - min) / (max - min)));
+    var alpha = (value / max) * 0.7;
+    console.log("val:" + value + " max:" + max);
+    // var color = this.getColor(this.options.colorMax, this.options.colorMin, ratio);
+    element.setAttribute('fill', this.options.colorMax);
+    element.setAttribute('fill-opacity', alpha);
   }.bind(this));
 
 };
