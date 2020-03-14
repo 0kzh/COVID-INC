@@ -1,0 +1,17 @@
+{
+    "city": "Custom",
+    "lat": -1,
+    "long": -1,
+    "locations": [
+        {
+            "name": "Brook Bridge",
+            "id": "-1",
+            "lat": 40.72940102987407,
+            "long": -73.97793335119873,
+            "photos": [
+                "https://img.etimg.com/thumb/msid-69719157,width-643,imgsize-987303,resizemode-4/london-bridge.jpg"
+            ],
+            "urls": []
+        }
+    ]
+}

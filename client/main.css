@@ -1,0 +1,244 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito";
+  color:#1f1c1c;
+  font-size:1em;
+  -webkit-font-smoothing: antialiased; /* This needs to be set or some font faced fonts look bold on Mac in Chrome/Webkit based browsers. */
+  -moz-osx-font-smoothing: grayscale; /* Fixes font bold issue in Firefox version 25+ on Mac */
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 0;
+}
+
+.modal {
+  pointer-events: none;
+}
+
+.modal-card {
+  border-radius: 8px;
+  pointer-events: auto;
+}
+
+#map {
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  height: 70px;
+  width: 100vw;
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  padding: 20px 20px 0;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header span {
+  color: #FF5722;
+}
+
+.search {
+  margin-left: auto;
+}
+
+#search{
+  pointer-events: auto;
+  width: 300px;
+  font-size: 21px;
+  border: none;
+  border-radius: 5px;
+  background: #FAFAFA;
+  padding: 15px;
+  font-family: "Nunito";
+  text-overflow: ellipsis;
+  padding-left: 60px;
+}
+
+#search:focus{
+  outline: none;
+  background: #fff;
+  transition: all ease-in-out .5s;
+}
+
+.open{
+  display:inline-block;
+  pointer-events: auto;
+  vertical-align:middle;
+  border-radius:30px;
+  font-size: 1rem;
+  color:#666666;
+  background:   #ffffff;
+  border:1px solid #666666;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 8px;
+  margin-left: 10px;
+}
+
+.open:hover{
+  border:1px solid #666666;
+  background:#666666;
+  color:#ffffff;
+  cursor: hand;
+}
+
+.search-icon {
+  top: 0.9em;
+  left: 1em;
+}
+
+.search-icon {
+  position: relative;
+  top: 1.8em;
+  pointer-events: none;
+  left: 0.6em;
+  z-index: 1000;
+  font-size: 1.75em;
+}
+
+#add-location {
+  position: fixed;
+  font-family: "Nunito";
+  z-index: 5;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.5em;
+  padding: 0 10px;
+  bottom: 1em;
+  left: 0.5em;
+}
+
+#marker {
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  z-index: 5;
+  height: 32px;
+  width: 32px;
+  -webkit-transform: translate(-50%, -100%);
+  top: 0px;
+  left: 0px;
+  color: white;
+}
+
+.img-preview {
+  width: 150px;
+  height: 150px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  padding-right: 12px !important;
+}
+
+.grid button {
+  display: none;
+}
+
+.icon {
+  width: 33.333333%;
+  cursor: hand;
+}
+
+.popup-header {
+  font-family: "Nunito";
+  font-weight: 800;
+  font-size: 2em;
+  float: left;
+  margin: 10 0px;
+  padding: 0px;
+  color: white !important;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 280px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.buttons {
+  float: right;
+  display: inline-block;
+  margin-right: 7px;
+}
+
+/* ----- Button styling ----- */
+.button{
+  width: 80px;
+  display: block;
+  float: left;
+  border-radius:3px;
+  margin: 10px 5px;
+  padding: 5px 10px;
+  text-align:center;
+  text-decoration:none;
+  font-family: "Nunito";
+  color: #ecf0f1;
+}
+
+.button-wide {
+  border: none;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  float: none;
+}
+
+.red{
+  box-shadow: 0px 6px #c0392b;
+  background: #e74c3c;
+}
+
+.red:hover, .red:active{
+  cursor: hand;
+  box-shadow: 0px 6px #ab3326;
+  background: #c0392b;
+}
+
+/* ----- Info window styling (classes prone to change at Google's discretion) ----- */
+.gm-style .gm-style-iw {
+  background-color: #252525 !important;
+}
+
+.gm-style .gm-style-iw-c {
+  padding-bottom: 14px !important;
+}
+
+.view-link a {
+  background-color: #252525 !important;
+  margin-bottom: 10px;
+}
+
+.gm-style-iw-d, .poi-info-window div {
+  overflow: hidden !important;
+  background-color: #252525 !important;
+}
+
+/*style the link*/
+.gm-style div div div div div div div div a {
+  color: #f1f1f1;
+  font-weight: bold;
+}
+
+.poi-info-window .title, .poi-info-window .address-line {
+  color: white;
+}
+
+.gm-ui-hover-effect {
+  display: none !important;
+}
