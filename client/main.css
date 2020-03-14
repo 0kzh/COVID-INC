@@ -242,3 +242,82 @@ body {
 .gm-ui-hover-effect {
   display: none !important;
 }
+
+
+/*Card CSS START*/
+
+.card {
+  position: absolute;
+  padding: 1vw 2vw 1vw 2vw;
+  background: rgba(0,0,0, 0.7);
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 1.5vw; 
+}
+
+.card {
+  background:
+      -moz-linear-gradient(45deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw),
+    -moz-linear-gradient(225deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw);
+  background:
+      -o-linear-gradient(45deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw),
+    -o-linear-gradient(225deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw);
+  background:
+      -webkit-linear-gradient(45deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw),
+    -webkit-linear-gradient(225deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw);
+}
+
+.card {
+  background-position: bottom left, top right;
+  -moz-background-size: 50.02% 50%;
+  -webkit-background-size: 50.02% 50%;
+  background-size: 50.02% 100%;
+  background-repeat: no-repeat;
+}
+
+/*Card CSS END*/
+
+/*Date Clock CSS START*/
+
+.card-date {
+  margin: 1vw;
+  right: 0;
+}
+
+.time {
+  display: inline-block;
+}
+
+.colon,
+.dash{
+  font-size: 1.5vw;
+  display: inline-block;
+}
+
+.clock,
+.date {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.clock {
+  padding-left: 10pt;
+}
+.date {
+/*     padding-right: 15px; */
+/*     border-right: 2px #FFFFFF; */
+}
+
+/*Date Clock CSS END*/
+
+/*Info Panel*/
+
+.card-info {
+  left: 50%;
+  bottom: 0;
+  margin: 1vw;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+/*Info Panel END*/

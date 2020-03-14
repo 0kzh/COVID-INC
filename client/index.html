@@ -11,6 +11,28 @@
 
 <body>
   <div class="container">
+    <div class="card card-date">
+      <div class="date">
+        <div class="time" id="year"></div>
+        <div class="dash">-</div>
+        <div class="time" id="month"></div>
+        <div class="dash">-</div>
+        <div class="time" id="date"></div>
+      </div>
+      <!-- <div class="clock">
+        <div class="time" id="hour"></div>
+        <div class="colon">:</div>
+        <div class="time" id="min"></div>
+        <div class="colon">:</div>
+        <div class="time" id="sec"></div>
+      </div> -->
+    </div>
+
+    <div class="card card-info">
+      hello
+    </div>
+
+
     <div id="data-points">
       <svg id="points" width="100%" height="100%" style="position: absolute; z-index: 2; pointer-events: none;"></svg>
     </div>
@@ -25,6 +47,7 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="static/js/svgMap.js"></script>
+<script src="static/js/clock.js"></script>
 <script src="script.js"></script>
 
 </html>
