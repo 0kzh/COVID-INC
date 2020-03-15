@@ -1,4 +1,4 @@
-function fill(infected, dead, healthy) {
+function fill(flag, name, infected, dead, healthy) {
     total = infected + dead + healthy;
 
     // totalNonHealthy = infected + dead;
@@ -9,6 +9,9 @@ function fill(infected, dead, healthy) {
     // percentDead = (dead/totalNonHealthy)*(logNonHealthy/logTotal)*100;
     // percentInfected = (infected/totalNonHealthy)*(logNonHealthy/logTotal)*100;
     // percentHealthy = 100 - percentDead - percentInfected;
+
+    $(".card-info .thumbnail").css("background-image", `url(${flag})`);
+    $("#country-name").text(name);
 
     percentDead = 100*dead/total;
     percentInfected = 100*infected/total;
@@ -30,7 +33,6 @@ function fill(infected, dead, healthy) {
 
     countInfected = document.getElementById('infected-count');
     countInfected.innerHTML = infected.toLocaleString();
+    
 }
-
-fill(150000, 5000, 7000000000);
   

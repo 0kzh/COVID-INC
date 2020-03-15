@@ -1,34 +1,58 @@
+var socket = io();
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-new svgMap({
-  isClipPath: false,
-  targetElementID: 'svgMap',
-  initialZoom: 1,
-  minZoom: 1,
-  maxZoom: 1,
-  data: {
+socket.emit('get_cases');
+
+socket.on('load_finish', (data) => {
+  window.data = data
+  new svgMap({
+    isClipPath: false,
+    targetElementID: 'svgMap',
+    initialZoom: 1,
+    minZoom: 1,
+    maxZoom: 1,
     data: {
-      gdp: {
-        name: 'GDP per capita',
-        format: '{0} USD',
-        thousandSeparator: ',',
-        thresholdMax: 50000,
-        thresholdMin: 1000
+      data: {
+        total_cases: {
+          visible: true,
+          name: 'Total Cases',
+          format: '{0} Total Cases',
+          thousandSeparator: ',',
+          thresholdMax: 100000,
+          thresholdMin: 1
+        },
+        log_total_cases: {
+          visible: false,
+          name: 'Log Total Cases',
+          format: '{0} Total Cases',
+          thousandSeparator: ',',
+          thresholdMax: 12,
+          thresholdMin: 1
+        }
+        // change: {
+        //   name: 'Change to year before',
+        //   format: '{0} %'
+        // }
       },
-      change: {
-        name: 'Change to year before',
-        format: '{0} %'
-      }
-    },
-    applyData: 'gdp',
-    values: {
-      AF: {gdp: 587, change: 4.73},
-      AL: {gdp: 4583, change: 11.09},
-      DZ: {gdp: 4293, change: 10.01}
-      // ...
+      applyData: 'log_total_cases',
+      values: data
     }
-  }
-});
+  });
+
+  // generate points
+  Object.keys(data).forEach((key) => {
+    generatePointInCountry(key, data[key]['total_cases'], data[key]['population'])
+  });
+
+  // populate world data
+  const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
+  const world_infected = data['WR']['total_cases']
+  const world_dead = data['WR']['total_deaths']
+  const world_population = 7771104755
+  fill(icon, "World", world_infected, world_dead, world_population)
+
+  attachHandlers();
+})
 
 new svgMap({
   isClipPath: true,
@@ -97,46 +121,56 @@ const pointInPolygon = function (point, vs) {
 
 // in: 2-letter abbreviation of country (ex. RU, CA, US, CN)
 // out: void, generates random pt in country path 
-const generatePointInCountry = (country) => {
+const generatePointInCountry = (country, infected, population) => {
   // select path element
   const path = document.querySelector(`path[data-id=${country}]`);
+  if (path) {
+    // rectangular bounding box
+    const bbox = path.getBBox();
+    const area = bbox.width * bbox.height;
 
-  // rectangular bounding box
-  const bbox = path.getBBox();
+    const numberDots = infected / Math.log(population);
+    console.log(numberDots)
 
-  const minX = bbox.x;
-  const minY = bbox.y;
-  const maxX = bbox.x + bbox.width;
-  const maxY = bbox.y + bbox.height;
+    const minX = bbox.x;
+    const minY = bbox.y;
+    const maxX = bbox.x + bbox.width;
+    const maxY = bbox.y + bbox.height;
 
-  // polygon representation of country
-  const poly = pathToPoly(path, 100);
-  // console.log(poly)
-  
-  // draw dots
-  var g = d3.select("#points")
-              .append("g")
-              .attr("transform", window.transform);
-  
-  // let g = document.createElementNS(SVG_NS, "g");
-  for (let i = 0; i < 1500; i++) {
-    let x = Math.floor(Math.random() * (maxX - minX) ) + minX;
-    let y = Math.floor(Math.random() * (maxY - minY) ) + minY;
-    // console.log([x, y])
-    if (pointInPolygon([x, y], poly)) {
-      // console.log("inside");
-      g.append("circle")
-                .attr("style", "fill: #670B07;")
-                .attr("cx", x)
-                .attr("cy", y)
-                .attr("r", 1.2);
-      // drawCircle({ cx: x, cy: y, r: 1 }, g);
+    // polygon representation of country
+    const poly = pathToPoly(path, 100);
+    // console.log(poly)
+    
+    // draw dots
+    var g = d3.select("#points")
+                .append("g")
+                .attr("transform", window.transform);
+    
+    // let g = document.createElementNS(SVG_NS, "g");
+    for (let i = 0; i < numberDots; i++) {
+      let x = Math.floor(Math.random() * (maxX - minX) ) + minX;
+      let y = Math.floor(Math.random() * (maxY - minY) ) + minY;
+      // console.log([x, y])
+      if (pointInPolygon([x, y], poly)) {
+        // console.log("inside");
+        g.append("circle")
+                  .attr("style", "fill: #670B07;")
+                  .attr("cx", x)
+                  .attr("cy", y)
+                  .attr("r", 1.2);
+      }
     }
   }
-  // svg.append(g);
-  // console.log(bbox);
-  
-
 };
 
-generatePointInCountry("CN");
+const attachHandlers = () => {
+  $('path[id^="svgMap-map-country"]').on('click', function (e) {
+    const country = e.target.getAttribute("data-id")
+    const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${country.toLowerCase()}.svg`
+    const name = window.data[country]['name']
+    const infected = window.data[country]['total_cases']
+    const dead = window.data[country]['total_deaths']
+    const population = window.data[country]['population']
+    fill(flag, name, infected, dead, population)
+  });
+}
