@@ -1,5 +1,6 @@
 var socket = io();
 const SVG_NS = "http://www.w3.org/2000/svg";
+const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
 
 socket.emit('get_cases');
 
@@ -46,11 +47,10 @@ socket.on('load_finish', (data) => {
   });
 
   // populate world data
-  const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
-  const world_infected = data['WR']['total_cases']
-  const world_dead = data['WR']['total_deaths']
-  const world_population = 7771104755
-  fill(icon, "World", world_infected, world_dead, world_population)
+  window.world_infected = data['WR']['total_cases']
+  window.world_dead = data['WR']['total_deaths']
+  window.world_population = 7771104755
+  fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
 
   attachHandlers();
 })
@@ -165,7 +165,8 @@ const generatePointInCountry = (country, infected, population) => {
 };
 
 const attachHandlers = () => {
-  $('path[id^="svgMap-map-country"]').on('click', function (e) {
+  $('path[id^="svgMap-map-country"]').click((e) => {
+    e.stopPropagation();
     const country = e.target.getAttribute("data-id")
     const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${country.toLowerCase()}.svg`
     const name = window.map.countries[country]
@@ -181,7 +182,10 @@ const attachHandlers = () => {
       population = '0'
     }
 
-    console.log(flag + ";" + name + ";" + infected + ";" + dead + ";" + population)
     fill(flag, name, infected, dead, population)
+  });
+
+  $('.svgMap-map-wrapper').click((e) => {
+    fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
   });
 }
