@@ -248,26 +248,27 @@ body {
 
 .card {
   position: absolute;
-  background: rgba(0,0,0, 0.6);
+  background: rgba(0,0,0, 0.5);
   color: #FFFFFF;
+  font-weight: bold;
   display: inline-block;
-  font-size: 2.5vh; 
+  font-size: 3vh; 
   font-family: 'Roboto', sans-serif;
 }
 
-.card {
+.card-chamfer {
   background:
-      -moz-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh),
-    -moz-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh);
+      -moz-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.5) 2vh),
+    -moz-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.5) 2vh);
   background:
-      -o-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh),
-    -o-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh);
+      -o-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.5) 2vh),
+    -o-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.5) 2vh);
   background:
-      -webkit-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh),
-    -webkit-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh);
+      -webkit-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.5) 2vh),
+    -webkit-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.5) 2vh);
 }
 
-.card {
+.card-chamfer {
   background-position: bottom left, top right;
   -moz-background-size: 50.02% 50%;
   -webkit-background-size: 50.02% 50%;
@@ -277,10 +278,116 @@ body {
 
 /*Card CSS END*/
 
+/*Disease and World START*/
+
+.card-disease {
+  left: 0;
+}
+
+.card-world {
+  right: 0;
+}
+
+.card-disease,
+.card-world {
+  cursor: pointer;
+  padding: 2vh 2vh;
+  width: 10vw;
+  bottom: 0;
+  margin: 1vh;
+  text-align: left;
+
+  -webkit-clip-path: polygon(0% 0%,     calc(100% - 2.1vh) 0%,  100% 2.1vh, 
+                             100% 100%, 0% 100%);
+  clip-path: polygon(0% 0%,     calc(100% - 2.1vh) 0%,  100% 2.1vh, 
+                     100% 100%, 0% 100%);
+}
+
+.red-bar {
+  margin-top: 1vh;
+  height: 2vh;
+  width: 100%; 
+  background-color: #790000;
+}
+
+.blue-bar {
+  margin-top: 1vh;
+  height: 2vh;
+  width: 100%; 
+  background-color: #25A6AA;
+}
+
+/*Disease and World END*/
+
+
+/*World END*/
+
+/*News START*/
+
+.card-news {
+  padding: 1vh 2vh;
+  width: 8vw;
+  text-align: center;
+  margin: 1vh;
+  left: 0;
+
+  margin-top: calc(1vh - 1px);
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-width: 1px;
+  z-index: 1000;
+}
+
+.news-button {
+  cursor: pointer;
+}
+
+.card-news-scroll {
+  padding: 1vh 2vh;
+  margin: 1vh;
+  width: 40vw;
+  height: 3.5vh;
+  left: calc(8vw + 4vh);
+  z-index: 999;
+}
+
+@keyframes slide {
+  from { left:100%; transform: translate(0, 0); }
+  to { left: -100%; transform: translate(-100%, 0); }
+}
+@-webkit-keyframes slide {
+  from { left:100%; transform: translate(0, 0); }
+  to { left: -100%; transform: translate(-100%, 0); }
+}
+
+.marquee { 
+  width:100%;
+  height: 3.5vh;
+  overflow:hidden;
+  position:relative;
+}
+
+.text {
+  position:absolute;
+  top:0;
+  font-size: 3vh;
+  white-space: nowrap;
+  animation-name: slide;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: slide;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-timing-function:linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+/*News END*/
+
 /*Date Clock CSS START*/
 
 .card-date {
-  padding: 2vh 4vh 2vh 4vh;
+  padding: 1vh 4vh;
   margin: 1vh;
   right: 0;
 }
@@ -291,7 +398,7 @@ body {
 
 .colon,
 .dash{
-  font-size: 2.5vh;
+  font-size: 3vh;
   display: inline-block;
 }
 
@@ -356,12 +463,15 @@ body {
   margin-left: 2%;
   color: #FFFFFF;
   text-align: left;
-  font-weight: bold;
+  font-size: 2.5vh;
+  font-weight: normal;
 }
 
 .card-info table th, 
 .card-info table td {
-  padding: 0 1vh;
+  padding: 0;
+  padding-left: 1vh;
+  padding-right: 3vh;
   border-left: rgba(255, 255, 255, 0.5);
   border-left-width: 1vh;
   border-left-style: solid;
@@ -386,7 +496,7 @@ body {
 
 .percent-bar {
 /*   width: 30%; */
-  height: 4vh;
+  height: 3.5vh;
 /*   background-color: #59A3C8; */
 /*   border-radius: 10px; */
   position: absolute;

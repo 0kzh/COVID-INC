@@ -12,7 +12,7 @@
 
 <body>
   <div class="container">
-    <div class="card card-date">
+    <div class="card card-chamfer card-date">
       <div class="date">
         <div class="time" id="year"></div>
         <div class="dash">-</div>
@@ -29,7 +29,7 @@
       </div> -->
     </div>
 
-    <div class="card card-info">
+    <div class="card card-chamfer card-info">
       <div class="thumbnail"></div>
       <div class="content">
         WORLD
@@ -38,12 +38,12 @@
             <th>
               <i class="fas fa-biohazard"></i>
               INFECTED <br>
-              <span id="infected-count">// 150,000</span>
+              // <span id="infected-count">150,000</span>
             </th>
             <th>
               <i class="fas fa-skull-crossbones"></i>
               DEAD <br>
-              <span id="dead-count">// 5,000</span>
+              // <span id="dead-count">5,000</span>
             </th>
           </tr>
         </table>
@@ -55,6 +55,28 @@
       </div>
     </div>
 
+    <div class="card card-news news-button">
+      NEWS
+    </div>
+    <div class="card card-news-scroll news-button">
+      <div class="marquee">
+        <div class="text" id="news-headline">
+          The U.S. Pres. tests negative, White House says
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          Italy had 3 confirmed cases 3 weeks ago and now has north of 20,000
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-disease">
+      DISEASE
+      <div class="red-bar"></div>
+    </div>
+
+    <div class="card card-world">
+      WORLD
+      <div class="blue-bar"></div>
+    </div>
 
     <div id="data-points">
       <svg id="points" width="100%" height="100%" style="position: absolute; z-index: 2; pointer-events: none;"></svg>
@@ -72,6 +94,9 @@
 <script src="static/js/svgMap.js"></script>
 <script src="static/js/clock.js"></script>
 <script src="static/js/progress.js"></script>
+<script src="static/js/news.js"></script>
+<script src="static/js/disease.js"></script>
+<script src="static/js/world.js"></script>
 <script src="script.js"></script>
 <script src="https://kit.fontawesome.com/642a076878.js" crossorigin="anonymous"></script>
 
