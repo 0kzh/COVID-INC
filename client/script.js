@@ -4,8 +4,9 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 socket.emit('get_cases');
 
 socket.on('load_finish', (data) => {
+  console.log(data)
   window.data = data
-  new svgMap({
+  window.map = new svgMap({
     isClipPath: false,
     targetElementID: 'svgMap',
     initialZoom: 1,
@@ -167,10 +168,20 @@ const attachHandlers = () => {
   $('path[id^="svgMap-map-country"]').on('click', function (e) {
     const country = e.target.getAttribute("data-id")
     const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${country.toLowerCase()}.svg`
-    const name = window.data[country]['name']
-    const infected = window.data[country]['total_cases']
-    const dead = window.data[country]['total_deaths']
-    const population = window.data[country]['population']
+    const name = window.map.countries[country]
+
+    var infected, dead, population;
+    if (window.data[country]) {
+      infected = window.data[country]['total_cases']
+      dead = window.data[country]['total_deaths']
+      population = window.data[country]['population']
+    } else {
+      infected = 'No data'
+      dead = 'No data'
+      population = '0'
+    }
+
+    console.log(flag + ";" + name + ";" + infected + ";" + dead + ";" + population)
     fill(flag, name, infected, dead, population)
   });
 }
