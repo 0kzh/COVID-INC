@@ -11,7 +11,7 @@ body {
 
 .container {
   width: 100%;
-  height: 100%;
+  height: 85%;
   margin: 0 0;
 }
 
@@ -248,23 +248,23 @@ body {
 
 .card {
   position: absolute;
-  padding: 1vw 2vw 1vw 2vw;
-  background: rgba(0,0,0, 0.7);
+  background: rgba(0,0,0, 0.6);
   color: #FFFFFF;
   display: inline-block;
-  font-size: 1.5vw; 
+  font-size: 2.5vh; 
+  font-family: 'Roboto', sans-serif;
 }
 
 .card {
   background:
-      -moz-linear-gradient(45deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw),
-    -moz-linear-gradient(225deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw);
+      -moz-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh),
+    -moz-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh);
   background:
-      -o-linear-gradient(45deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw),
-    -o-linear-gradient(225deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw);
+      -o-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh),
+    -o-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh);
   background:
-      -webkit-linear-gradient(45deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw),
-    -webkit-linear-gradient(225deg,  transparent 1vw, rgba(0,0,0, 0.7) 1vw);
+      -webkit-linear-gradient(45deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh),
+    -webkit-linear-gradient(225deg,  transparent 2vh, rgba(0,0,0, 0.6) 2vh);
 }
 
 .card {
@@ -280,7 +280,8 @@ body {
 /*Date Clock CSS START*/
 
 .card-date {
-  margin: 1vw;
+  padding: 2vh 4vh 2vh 4vh;
+  margin: 1vh;
   right: 0;
 }
 
@@ -290,14 +291,13 @@ body {
 
 .colon,
 .dash{
-  font-size: 1.5vw;
+  font-size: 2.5vh;
   display: inline-block;
 }
 
 .clock,
 .date {
   display: inline-block;
-  font-family: 'Roboto', sans-serif;
 }
 
 .clock {
@@ -313,11 +313,95 @@ body {
 /*Info Panel*/
 
 .card-info {
+  padding: 1vh;
   left: 50%;
   bottom: 0;
-  margin: 1vw;
+  margin: 0.5vw;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
+
+  height: 16vh;
+  width: 42vw;
+}
+
+.card-info .thumbnail {
+  position: relative;
+  display: inline-block;
+  background-image: url("https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 18vh;
+  height: 100%;
+
+  -webkit-clip-path: polygon(0% 0%,     calc(100% - 2.1vh) 0%,  100% 2.1vh, 
+                             100% 100%, 2.1vh 100%, 0% calc(100% - 2.1vh));
+  clip-path: polygon(0% 0%,     calc(100% - 2.1vh) 0%,  100% 2.1vh, 
+                     100% 100%, 2.1vh 100%, 0% calc(100% - 2.1vh));
+
+}
+
+.card-info .content {
+  position: absolute;
+  top: 1vh;
+  padding: 0 1vh;
+  font-weight: bold;
+  display: inline-block;
+  height: 16vh;
+  width: calc(42vw - 19vh);
+}
+
+.card-info table {
+  margin-top: 0.2vh;
+  margin-left: 2%;
+  color: #FFFFFF;
+  text-align: left;
+  font-weight: bold;
+}
+
+.card-info table th, 
+.card-info table td {
+  padding: 0 1vh;
+  border-left: rgba(255, 255, 255, 0.5);
+  border-left-width: 1vh;
+  border-left-style: solid;
+  line-height: 3.6vh;
 }
 
 /*Info Panel END*/
+
+/*Progress Bar START*/
+
+.container-div {
+  width: 98%;
+  height: 4vh;
+  margin-top: 1vh;
+  text-align: center;
+  background-color: rgba(0,0,0,0);
+/*   border-radius: 10px; */
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+}
+
+.percent-bar {
+/*   width: 30%; */
+  height: 4vh;
+/*   background-color: #59A3C8; */
+/*   border-radius: 10px; */
+  position: absolute;
+  z-index: 2;
+}
+
+.percent-bar#dead-bar {
+  margin-left: 0;
+  background-color: #202020;
+}
+.percent-bar#infected-bar {
+  background-color: #790000;
+}
+.percent-bar#healthy-bar {
+  background-color: #25A6AA;
+}
+
+/*Progress Bar END*/

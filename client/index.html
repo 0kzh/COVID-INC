@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/svgMap.css" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
+
 </head>
 
 <body>
@@ -29,7 +30,29 @@
     </div>
 
     <div class="card card-info">
-      hello
+      <div class="thumbnail"></div>
+      <div class="content">
+        WORLD
+        <table>
+          <tr>
+            <th>
+              <i class="fas fa-biohazard"></i>
+              INFECTED <br>
+              <span id="infected-count">// 150,000</span>
+            </th>
+            <th>
+              <i class="fas fa-skull-crossbones"></i>
+              DEAD <br>
+              <span id="dead-count">// 5,000</span>
+            </th>
+          </tr>
+        </table>
+        <div class="container-div">
+          <div class="percent-bar" id="dead-bar"></div>
+          <div class="percent-bar" id="infected-bar"></div>
+          <div class="percent-bar" id="healthy-bar"></div>
+        </div>
+      </div>
     </div>
 
 
@@ -48,6 +71,9 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="static/js/svgMap.js"></script>
 <script src="static/js/clock.js"></script>
+<script src="static/js/progress.js"></script>
 <script src="script.js"></script>
+<script src="https://kit.fontawesome.com/642a076878.js" crossorigin="anonymous"></script>
+
 
 </html>
