@@ -2297,7 +2297,7 @@ svgMap.prototype.init = function (options) {
     // Data colors
     colorMax: '#CC0033',
     colorMin: '#FFE5D9',
-    colorNoData: 'rgba(0, 0, 0, 0)',
+    colorNoData: 'transparent',
 
     // The flag type can be 'image' or 'emoji'
     flagType: 'image',
@@ -3008,10 +3008,12 @@ svgMap.prototype.getTooltipContent = function (countryID) {
     Object.keys(this.options.data.data).forEach(function (key) {
       var item = this.options.data.data[key];
       var value = this.options.data.values[countryID][key];
-      item.floatingNumbers && (value = value.toFixed(1));
-      item.thousandSeparator && (value = this.numberWithCommas(value, item.thousandSeparator));
-      value = item.format ? item.format.replace('{0}', '<span>' + value + '</span>') : '<span>' + value + '</span>';
-      tooltipContentTable += '<tr><td>' + (item.name || '') + '</td><td>' + value + '</td></tr>';
+      if (item.visible) {
+        item.floatingNumbers && (value = value.toFixed(1));
+        item.thousandSeparator && (value = this.numberWithCommas(value, item.thousandSeparator));
+        value = item.format ? item.format.replace('{0}', '<span>' + value + '</span>') : '<span>' + value + '</span>';
+        tooltipContentTable += '<tr><td>' + (item.name || '') + '</td><td>' + value + '</td></tr>';
+      }
     }.bind(this));
     tooltipContentTable += '</table>';
     tooltipContent.innerHTML = tooltipContentTable;
