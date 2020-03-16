@@ -97,9 +97,32 @@ const pathToPoly = (path,samples) => {
   var points = [];
   var len  = path.getTotalLength();
   var step = step=len/samples;
+
+  // Put each island as a separate polygon
+  var curr_island = 0;
+  points[curr_island] = [];
+
+  // Track change in island
+  var prev_p = path.getPointAtLength(0);
+  var threshold = 100;
+  
   for (var i=0;i<=len;i+=step){
     var p = path.getPointAtLength(i);
-    points.push([p.x, p.y]);
+
+    // Old implementation: push all points
+    // points.push([p.x, p.y]);
+
+    // If same island
+    if (Math.pow((p.x - prev_p.x), 2) + Math.pow((p.y - prev_p.y), 2) < threshold) {
+      points[curr_island].push([p.x, p.y]);
+      prev_p = p;
+    }
+    // If new island
+    else if (i + step <= len) {
+      curr_island += 1;
+      points[curr_island] = [];
+      prev_p = path.getPointAtLength(i+step);
+    }
   }
   // poly.setAttribute('points',points.join(' '));
   return points;
@@ -134,8 +157,16 @@ const generatePointInCountry = (country, infected, population) => {
     const bbox = path.getBBox();
     const area = bbox.width * bbox.height;
 
-    const numberDots = infected / Math.log(population);
-    console.log(numberDots)
+    // make it look nice - scale by area, infected, and population
+    var numberDots = (Math.log(area)/30) * infected / Math.log(population);
+    // var numberDots = 30000; // stress test
+    if (numberDots > area/2)
+    {
+      numberDots = Math.round(area/2);
+    }
+
+    console.log(area);
+    console.log(numberDots);
 
     const minX = bbox.x;
     const minY = bbox.y;
@@ -143,8 +174,12 @@ const generatePointInCountry = (country, infected, population) => {
     const maxY = bbox.y + bbox.height;
 
     // polygon representation of country
-    const poly = pathToPoly(path, 100);
-    // console.log(poly)
+    var sampling = 200; // default sampling
+    // Big/weird countries to increase sampling
+    if (country === 'IT' || country === 'CN' || country === 'US' || country === 'RU' || country == 'CA') {
+      sampling = 1000;
+    }
+    const poly = pathToPoly(path, sampling);
     
     // draw dots
     var g = d3.select("#points")
@@ -156,14 +191,21 @@ const generatePointInCountry = (country, infected, population) => {
       let x = Math.floor(Math.random() * (maxX - minX) ) + minX;
       let y = Math.floor(Math.random() * (maxY - minY) ) + minY;
       // console.log([x, y])
-      if (pointInPolygon([x, y], poly)) {
-        // console.log("inside");
-        g.append("circle")
-                  .attr("style", "fill: #670B07;")
-                  .attr("cx", x)
-                  .attr("cy", y)
-                  .attr("r", 1.2);
+
+      // Test each "island"
+      var len = poly.length;
+      for (var j = 0; j < len; j++) {
+        if (pointInPolygon([x, y], poly[j])) {
+          // console.log("inside");
+          g.append("circle")
+                    .attr("style", "fill: #670B07;")
+                    .attr("cx", x)
+                    .attr("cy", y)
+                    .attr("r", 1.2);
+          break;
+        }
       }
+      
     }
   }
 };
