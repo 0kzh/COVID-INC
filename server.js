@@ -66,7 +66,7 @@ function formatDate(date) {
 }
 
 function getCases(day, callback){
-  request('***REMOVED***' + day, (error, response, body) => {
+  request('https://af18f64x36.execute-api.us-east-1.amazonaws.com/prod/coronavirus?day=' + day, (error, response, body) => {
     if (!error && response.statusCode == 200) {
       var importedJSON = JSON.parse(body);
       callback(importedJSON);
