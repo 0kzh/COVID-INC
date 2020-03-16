@@ -3,14 +3,23 @@
 <head>
   <title>Covid Inc</title>
 
-  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/svgMap.css" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
-  <link rel="manifest" href="manifest.json">
+  <!-- <link rel="manifest" href="manifest.json"> -->
 </head>
 
-<body>
+<body id="device-orientation">
+  <div id="rotate-container">
+    <div id="rotate-message">
+      <div class="phone">
+      </div>
+      <div class="message">
+        Please rotate your device!
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div class="card card-chamfer card-date">
       <div class="date">
@@ -29,32 +38,6 @@
       </div> -->
     </div>
 
-    <div class="card card-chamfer card-info">
-      <div class="thumbnail"></div>
-      <div class="content">
-        <span id="country-name"></span>
-        <table>
-          <tr>
-            <th>
-              <i class="fas fa-biohazard"></i>
-              INFECTED <br>
-              // <span id="infected-count">Loading...</span>
-            </th>
-            <th>
-              <i class="fas fa-skull-crossbones"></i>
-              DEAD <br>
-              // <span id="dead-count">Loading...</span>
-            </th>
-          </tr>
-        </table>
-        <div class="container-div">
-          <div class="percent-bar" id="dead-bar"></div>
-          <div class="percent-bar" id="infected-bar"></div>
-          <div class="percent-bar" id="healthy-bar"></div>
-        </div>
-      </div>
-    </div>
-
     <div class="card card-news news-button">
       NEWS
     </div>
@@ -68,14 +51,42 @@
       </div>
     </div>
 
-    <div class="card card-disease">
-      DISEASE
-      <div class="red-bar"></div>
-    </div>
+    <div class="align-bot">
+      <div class="card card-disease">
+        DISEASE
+        <div class="red-bar"></div>
+      </div>
 
-    <div class="card card-world">
-      WORLD
-      <div class="blue-bar"></div>
+      <div class="card card-chamfer card-info">
+        <div class="thumbnail"></div>
+        <div class="content">
+          <span id="country-name"></span>
+          <table>
+            <tr>
+              <th>
+                <span><i class="fas fa-biohazard"></i>INFECTED</span>
+                <br>
+                <span id="infected-count">Loading...</span>
+              </th>
+              <th>
+                <span><i class="fas fa-skull-crossbones"></i>DEAD</span><br>
+                <span id="dead-count">Loading...</span>
+              </th>
+            </tr>
+          </table>
+          <div class="container-div">
+            <div class="percent-bar" id="dead-bar"></div>
+            <div class="percent-bar" id="infected-bar"></div>
+            <div class="percent-bar" id="healthy-bar"></div>
+          </div>
+        </div>
+      </div>
+    
+
+      <div class="card card-world">
+        WORLD
+        <div class="blue-bar"></div>
+      </div>
     </div>
 
     <div id="data-points">
@@ -91,6 +102,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script src="static/js/init.js"></script>
 <script src="static/js/svgMap.js"></script>
 <script src="static/js/clock.js"></script>
 <script src="static/js/progress.js"></script>

@@ -8,7 +8,7 @@ var ioServer = require('socket.io');
 var app = express();
 
 const IS_PRODUCTION = process.env.NODE_ENV == 'production';
-
+const PORT = IS_PRODUCTION ? 80 : 3000;
 // start http server
 const httpServer = http.createServer(app);
 
@@ -32,18 +32,14 @@ if (IS_PRODUCTION) {
   
   app.all('*', httpsRedir);
 
-  const PORT = IS_PRODUCTION ? 80 : 3000;
-
-  httpServer.listen(PORT, function () {
-    console.log('HTTP server running on port ' + PORT);
+  httpsServer.listen(443, function () {
+    console.log('HTTPS server running on port 443');
   });
-
-  if (IS_PRODUCTION) {
-    httpsServer.listen(443, function () {
-      console.log('HTTPS server running on port 443');
-    });
-  }
 }
+
+httpServer.listen(PORT, function () {
+  console.log('HTTP server running on port ' + PORT);
+});
 
 // serve front-end website
 app.use(express.static('./client'));
