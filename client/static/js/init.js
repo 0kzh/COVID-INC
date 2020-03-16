@@ -7,7 +7,3 @@ const checkOrientation = () => {
 }
 
 checkOrientation();
-
-window.addEventListener("resize", function() {
-    checkOrientation();
-});
