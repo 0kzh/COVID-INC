@@ -1,5 +1,26 @@
 function fill(flag, name, infected, dead, healthy) {
+
+    countDead = document.getElementById('dead-count');
+    if (dead === 'No data') {
+        countDead.innerHTML = 'No data';
+        dead = 0;
+    }
+    else {
+        countDead.innerHTML = dead.toLocaleString();
+    }
+    
+    countInfected = document.getElementById('infected-count');
+    if (infected === 'No data') {
+        countInfected.innerHTML = 'No data';
+        infected = 0;
+    }
+    else {
+        countInfected.innerHTML = infected.toLocaleString();
+    }
+
     total = infected + dead + healthy;
+
+    console.log(total + " " + dead + " " + infected + " " + healthy);
 
     // totalNonHealthy = infected + dead;
 
@@ -13,9 +34,27 @@ function fill(flag, name, infected, dead, healthy) {
     $(".card-info .thumbnail").css("background-image", `url(${flag})`);
     $("#country-name").text(name);
 
-    percentDead = 100*dead/total;
-    percentInfected = 100*infected/total;
-    percentHealthy = 100*healthy/total;
+    percentDead = 0; 
+    if (total > 0) {
+        if (dead > 0) {
+            percentDead = Math.max(2, 100*dead/total);
+        }
+    }
+    
+    percentInfected = 0;
+    if (total > 0) {
+        if (infected > 0) {
+            percentInfected = Math.max(2, 100*infected/total);
+        }
+    }
+
+    percentHealthy = 100 - percentDead - percentInfected;
+    if (percentHealthy < 2 && percentHealthy > 0) {
+        diff = 2.0 - percentHealthy;
+        percentHealthy = 2;
+        percentDead -= diff/2.0;
+        percentInfected -= diff/2.0;
+    }
     
     barDead = document.getElementById('dead-bar');
     barDead.style.width = percentDead + "%";
@@ -28,11 +67,4 @@ function fill(flag, name, infected, dead, healthy) {
     barHealthy.style.width = percentHealthy + "%";
     barHealthy.style["margin-left"] = (percentDead + percentInfected) + "%";
 
-    countDead = document.getElementById('dead-count');
-    countDead.innerHTML = dead.toLocaleString();
-
-    countInfected = document.getElementById('infected-count');
-    countInfected.innerHTML = infected.toLocaleString();
-    
 }
-  
