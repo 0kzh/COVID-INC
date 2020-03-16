@@ -1,2 +1,13 @@
-// this is a hack for hiding the address bar on mobile devices
-window.scrollTo(0,1);
+const checkOrientation = () => {
+    if(window.innerWidth > window.innerHeight){
+        $("#rotate-container").hide();
+    } else {
+        $("#rotate-container").show();
+    }
+}
+
+checkOrientation();
+
+window.addEventListener("resize", function() {
+    checkOrientation();
+});
