@@ -53,13 +53,28 @@ body {
 	}
 }
 
-#device-orientation { display:block; }
+/* #device-orientation { display:block; }
 
 @media only screen and (orientation:portrait){
   #device-orientation {
    height: 100vw;
+   -webkit-transform: rotate(0deg);
+   -moz-transform: rotate(0deg);
+   -o-transform: rotate(0deg);
+   -ms-transform: rotate(0deg);
+   transform: rotate(0deg);
   }
-}
+} */
+
+/* @media only screen and (orientation:landscape){
+  #device-orientation {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+} */
 
 #svgMap {
   z-index: 103;
