@@ -7,27 +7,33 @@ var fs = require('fs');
 var ioServer = require('socket.io');
 var app = express();
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/covidinc.io/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/covidinc.io/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/covidinc.io/chain.pem', 'utf8');
+const IS_PRODUCTION = process.env.NODE_ENV == 'production';
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
-
-// start http and https servers
+// start http server
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
 
 var io = new ioServer();
 io.attach(httpServer);
-io.attach(httpsServer);
 
+// start https if prod
+if (IS_PRODUCTION) {
+  const privateKey = fs.readFileSync('/etc/letsencrypt/live/covidinc.io/privkey.pem', 'utf8');
+  const certificate = fs.readFileSync('/etc/letsencrypt/live/covidinc.io/cert.pem', 'utf8');
+  const ca = fs.readFileSync('/etc/letsencrypt/live/covidinc.io/chain.pem', 'utf8');
+  
+  const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+  };
+
+  const httpsServer = https.createServer(credentials, app);
+  io.attach(httpsServer);
+  
+  app.all('*', httpsRedir);
+}
 
 // serve front-end website
-app.all('*', httpsRedir);
 app.use(express.static('./client'));
 
 function httpsRedir(req, res, next) {
@@ -71,11 +77,14 @@ io.on('connection', function(socket){
 
 
 
-const PORT = process.env.NODE_ENV == 'production' ? 80 : 3000;
+const PORT = IS_PRODUCTION ? 80 : 3000;
+
 httpServer.listen(PORT, function () {
   console.log('HTTP server running on port ' + PORT);
 });
 
-httpsServer.listen(443, function () {
-  console.log('HTTPS server running on port 443');
-});
+if (IS_PRODUCTION) {
+  httpsServer.listen(443, function () {
+    console.log('HTTPS server running on port 443');
+  });
+}
