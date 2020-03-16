@@ -85,6 +85,8 @@ window.addEventListener("resize", function() {
   checkOrientation();
   redrawMap("svgBg")
   redrawMap("svgMap")
+  clearHandlers()
+  attachHandlers()
 });
 
 // generate css polygon (array of pts) from path
@@ -181,6 +183,14 @@ socket.on('load_finish', (data) => {
   attachHandlers();
 })
 
+<<<<<<< HEAD
+=======
+const clearHandlers = () => {
+  $('path[id^="svgMap-map-country"]').off();
+  $('.svgMap-map-wrapper').off();
+}
+
+>>>>>>> bd6464cb59779d6443b2a4c7443af9a96d37a340
 const attachHandlers = () => {
   $('path[id^="svgMap-map-country"]').on("click touchstart", (e) => {
     e.stopPropagation();
