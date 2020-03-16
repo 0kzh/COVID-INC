@@ -5,7 +5,7 @@ body {
   background-size: cover;
 }
 
-#device-orientation { display:block; }
+/* #device-orientation { display:block; }
 
 @media only screen and (orientation:portrait){
   #device-orientation {
@@ -26,7 +26,7 @@ body {
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-}
+} */
 
 #svgMap {
   z-index: 103;
