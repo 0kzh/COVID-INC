@@ -280,6 +280,12 @@ body {
 
 /*Disease and World START*/
 
+.align-bot {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .card-disease {
   left: 0;
 }
@@ -290,9 +296,10 @@ body {
 
 .card-disease,
 .card-world {
+  /* position: relative; */
   cursor: pointer;
+  /* padding: 2% 2%; */
   padding: 2vh 2vh;
-  width: 10vw;
   bottom: 0;
   margin: 1vh;
   text-align: left;
@@ -306,14 +313,14 @@ body {
 .red-bar {
   margin-top: 1vh;
   height: 2vh;
-  width: 100%; 
+  width: 10vw; 
   background-color: #790000;
 }
 
 .blue-bar {
   margin-top: 1vh;
   height: 2vh;
-  width: 100%; 
+  width: 10vw; 
   background-color: #25A6AA;
 }
 
@@ -365,6 +372,10 @@ body {
   height: 3.5vh;
   overflow:hidden;
   position:relative;
+}
+
+#country-name {
+  margin-left: 5px;
 }
 
 .text {
@@ -419,16 +430,31 @@ body {
 
 /*Info Panel*/
 
+.fas {
+  display: inline !important;
+  margin-right: 10px;
+}
+
+
+.align-bot {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .card-info {
-  padding: 1vh;
+  /* position: relative; */
+  /* padding: 1vh; */
   left: 50%;
   bottom: 0;
-  margin: 0.5vw;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-
+  margin: 1vh;
+  padding: 1vh;
   height: 16vh;
-  width: 42vw;
+  /* margin: 0.5vw; */
+  /* -webkit-transform: translateX(-50%);*/
+  transform: translateX(-50%);
+  /* margin-left: auto;
+  margin-right: auto; */
 }
 
 .card-info .thumbnail {
@@ -449,13 +475,9 @@ body {
 }
 
 .card-info .content {
-  position: absolute;
-  top: 1vh;
-  padding: 0 1vh;
-  font-weight: bold;
-  display: inline-block;
-  height: 16vh;
-  width: calc(42vw - 19vh);
+  float: right;
+  padding-left: 2vw;
+  padding-right: 3vw;
 }
 
 .card-info table {
@@ -473,9 +495,9 @@ body {
   padding-left: 1vh;
   padding-right: 3vh;
   border-left: rgba(255, 255, 255, 0.5);
-  border-left-width: 1vh;
+  border-left-width: 2px;
   border-left-style: solid;
-  line-height: 3.6vh;
+  /* line-height: 3.6em; */
 }
 
 /*Info Panel END*/

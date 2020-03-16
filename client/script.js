@@ -4,85 +4,87 @@ const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
 
 socket.emit('get_cases');
 
-socket.on('load_finish', (data) => {
-  console.log(data)
-  window.data = data
-  window.map = new svgMap({
-    isClipPath: false,
-    targetElementID: 'svgMap',
-    initialZoom: 1,
-    minZoom: 1,
-    maxZoom: 1,
-    data: {
+const redrawMap = (id) => {
+  if (id == "svgMap") {
+    $("#svgMap .svgMap-map-wrapper").remove()
+    $("#points").empty()
+    window.map = new svgMap({
+      isClipPath: false,
+      targetElementID: 'svgMap',
+      initialZoom: 1,
+      minZoom: 1,
+      maxZoom: 1,
       data: {
-        total_cases: {
-          visible: true,
-          name: 'Total Cases',
-          format: '{0} Total Cases',
-          thousandSeparator: ',',
-          thresholdMax: 100000,
-          thresholdMin: 1
+        data: {
+          total_cases: {
+            visible: true,
+            name: 'Total Cases',
+            format: '{0} Total Cases',
+            thousandSeparator: ',',
+            thresholdMax: 100000,
+            thresholdMin: 1
+          },
+          log_total_cases: {
+            visible: false,
+            name: 'Log Total Cases',
+            format: '{0} Total Cases',
+            thousandSeparator: ',',
+            thresholdMax: 12,
+            thresholdMin: 1
+          }
         },
-        log_total_cases: {
-          visible: false,
-          name: 'Log Total Cases',
-          format: '{0} Total Cases',
-          thousandSeparator: ',',
-          thresholdMax: 12,
-          thresholdMin: 1
-        }
-        // change: {
-        //   name: 'Change to year before',
-        //   format: '{0} %'
-        // }
-      },
-      applyData: 'log_total_cases',
-      values: data
-    }
-  });
-
-  // generate points
-  Object.keys(data).forEach((key) => {
-    generatePointInCountry(key, data[key]['total_cases'], data[key]['population'])
-  });
-
-  // populate world data
-  window.world_infected = data['WR']['total_cases']
-  window.world_dead = data['WR']['total_deaths']
-  window.world_population = 7771104755
-  fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
-
-  attachHandlers();
-})
-
-new svgMap({
-  isClipPath: true,
-  targetElementID: 'svgBg',
-  initialZoom: 1,
-  minZoom: 1,
-  maxZoom: 1,
-  data: {
-    data: {
-      gdp: {
-        name: 'GDP per capita',
-        format: '{0} USD',
-        thousandSeparator: ',',
-        thresholdMax: 50000,
-        thresholdMin: 1000
-      },
-      change: {
-        name: 'Change to year before',
-        format: '{0} %'
+        applyData: 'log_total_cases',
+        values: window.data ? window.data : {}
       }
-    },
-    applyData: 'gdp',
-    values: {
-      AF: {gdp: 587, change: 4.73},
-      AL: {gdp: 4583, change: 11.09},
-      DZ: {gdp: 4293, change: 10.01}
-      // ...
+    });
+
+    if (window.data) {
+      // generate points
+      Object.keys(window.data).forEach((key) => {
+        generatePointInCountry(key, window.data[key]['total_cases'], window.data[key]['population'])
+      });
     }
+    
+  } else if (id == "svgBg") {
+    $("#svgBg .svgMap-map-wrapper").remove()
+    window.bg = new svgMap({
+      isClipPath: true,
+      targetElementID: 'svgBg',
+      initialZoom: 1,
+      minZoom: 1,
+      maxZoom: 1,
+      data: {
+        data: {
+          gdp: {
+            name: 'GDP per capita',
+            format: '{0} USD',
+            thousandSeparator: ',',
+            thresholdMax: 50000,
+            thresholdMin: 1000
+          },
+          change: {
+            name: 'Change to year before',
+            format: '{0} %'
+          }
+        },
+        applyData: 'gdp',
+        values: {
+          AF: {gdp: 587, change: 4.73},
+          AL: {gdp: 4583, change: 11.09},
+          DZ: {gdp: 4293, change: 10.01}
+          // ...
+        }
+      }
+    });
   }
+}
+
+redrawMap("svgBg")
+
+window.addEventListener("resize", function() {
+  checkOrientation();
+  redrawMap("svgBg")
+  redrawMap("svgMap")
 });
 
 // generate css polygon (array of pts) from path
@@ -163,6 +165,21 @@ const generatePointInCountry = (country, infected, population) => {
     }
   }
 };
+
+socket.on('load_finish', (data) => {
+  console.log(data)
+  window.data = data
+
+  redrawMap("svgMap")
+
+  // populate world data
+  window.world_infected = data['WR']['total_cases']
+  window.world_dead = data['WR']['total_deaths']
+  window.world_population = 7771104755
+  fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
+
+  attachHandlers();
+})
 
 const attachHandlers = () => {
   $('path[id^="svgMap-map-country"]').click((e) => {
