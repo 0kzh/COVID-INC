@@ -182,7 +182,7 @@ socket.on('load_finish', (data) => {
 })
 
 const attachHandlers = () => {
-  $('path[id^="svgMap-map-country"]').click((e) => {
+  $('path[id^="svgMap-map-country"]').on("click touchstart", (e) => {
     e.stopPropagation();
     const country = e.target.getAttribute("data-id")
     const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${country.toLowerCase()}.svg`
@@ -202,7 +202,7 @@ const attachHandlers = () => {
     fill(flag, name, infected, dead, population)
   });
 
-  $('.svgMap-map-wrapper').click((e) => {
+  $('.svgMap-map-wrapper').on("click touchstart", (e) => {
     fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
   });
 }
