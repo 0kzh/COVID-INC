@@ -31,6 +31,18 @@ if (IS_PRODUCTION) {
   io.attach(httpsServer);
   
   app.all('*', httpsRedir);
+
+  const PORT = IS_PRODUCTION ? 80 : 3000;
+
+  httpServer.listen(PORT, function () {
+    console.log('HTTP server running on port ' + PORT);
+  });
+
+  if (IS_PRODUCTION) {
+    httpsServer.listen(443, function () {
+      console.log('HTTPS server running on port 443');
+    });
+  }
 }
 
 // serve front-end website
@@ -74,17 +86,3 @@ io.on('connection', function(socket){
     });
   });
 });
-
-
-
-const PORT = IS_PRODUCTION ? 80 : 3000;
-
-httpServer.listen(PORT, function () {
-  console.log('HTTP server running on port ' + PORT);
-});
-
-if (IS_PRODUCTION) {
-  httpsServer.listen(443, function () {
-    console.log('HTTPS server running on port 443');
-  });
-}
