@@ -384,11 +384,11 @@ body {
   font-size: 3vh;
   white-space: nowrap;
   animation-name: slide;
-  animation-duration: 30s;
+  animation-duration: 15s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   -webkit-animation-name: slide;
-  -webkit-animation-duration: 30s;
+  -webkit-animation-duration: 15s;
   -webkit-animation-timing-function:linear;
   -webkit-animation-iteration-count: infinite;
 }
