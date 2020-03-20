@@ -1,9 +1,9 @@
 function clock() {
     var today = new Date();
+    today = new Date(today.getTime() + today.getTimezoneOffset() * 60000); // convert to UTC/GMT for server processing
     var year = today.getFullYear();
     var month = zeros(today.getMonth() + 1); // get month returns 0-11
     var date = zeros(today.getDate());
-
     var hour = zeros(twelveHour(today.getHours()));
     var minutes = zeros(today.getMinutes());
     var seconds = zeros(today.getSeconds());
