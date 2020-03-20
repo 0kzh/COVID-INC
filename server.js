@@ -97,7 +97,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('get_ports', function(){
-    const json = getPorts();
-    socket.json.emit('ports_loaded', json);
+    const jsonPorts = getPorts();
+    socket.json.emit('ports_loaded', jsonPorts);
   });
 });

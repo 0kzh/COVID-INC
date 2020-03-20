@@ -24,10 +24,10 @@ const addPort = (country, type, offsetX, offsetY) => {
 
 const drawPorts = () => {
   if (window.portData) {
-    data = window.portData
-    Object.keys(data).map((country) => {
-      const airports = data[country]['airports']
-      const harbours = data[country]['harbours']
+    portData = window.portData
+    Object.keys(portData).map((country) => {
+      const airports = portData[country]['airports']
+      const harbours = portData[country]['harbours']
 
       airports.forEach((airport) => {
         const x = airport['offset_x'];
@@ -277,6 +277,7 @@ socket.on('load_finish', (data) => {
 
 socket.on('ports_loaded', (data) => {
   window.portData = data
+  console.log(window.data);
 })
 
 const clearHandlers = () => {
@@ -301,7 +302,7 @@ const attachHandlers = () => {
       dead = 'No data'
       population = '0'
     }
-
+    
     fill(flag, name, infected, dead, population)
   });
 
