@@ -74,11 +74,30 @@ function getCases(day, callback){
   })
 }
 
+function readJsonFileSync(filepath, encoding){
+  if (typeof (encoding) == 'undefined'){
+      encoding = 'utf8';
+  }
+
+  const file = fs.readFileSync(filepath, encoding);
+  return JSON.parse(file);
+}
+
+function getPorts() {
+  const filepath = __dirname + '/ports.json';
+  return readJsonFileSync(filepath);
+}
+
 const now = formatDate(new Date());
 io.on('connection', function(socket){
   socket.on('get_cases', function(day=now){
     getCases(day, (json) => {
       socket.json.emit('load_finish', json);
     });
+  });
+
+  socket.on('get_ports', function(){
+    const json = getPorts();
+    socket.json.emit('ports_loaded', json);
   });
 });

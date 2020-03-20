@@ -1,0 +1,448 @@
+{
+    "CA": {
+        "airports": [
+            {
+                "offset_x": 0.6,
+                "offset_y": 0.8,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.8,
+                "offset_y": 0.65,
+                "closed": true
+            }
+        ]
+    },
+    "US": {
+        "airports": [
+            {
+                "offset_x": 0.7,
+                "offset_y": 0.6,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.85,
+                "offset_y": 0.65,
+                "closed": true
+            }
+        ]
+    },
+    "MX": {
+        "airports": [
+            {
+                "offset_x": 0.3,
+                "offset_y": 0.65,
+                "closed": false
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.55,
+                "offset_y": 0.7,
+                "closed": false
+            }
+        ]
+    },
+    "GL": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.25,
+                "offset_y": 0.9,
+                "closed": false
+            }
+        ]
+    },
+    "CU": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.3,
+                "offset_y": 0.1,
+                "closed": false
+            }
+        ]
+    },
+    "PA": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.3,
+                "offset_y": 0.1,
+                "closed": true
+            }
+        ]
+    },
+    "BR": {
+        "airports": [
+            {
+                "offset_x": 0.65,
+                "offset_y": 0.5,
+                "closed": false
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.8,
+                "offset_y": 0.65,
+                "closed": false
+            }
+        ]
+    },
+    "AR": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.35,
+                "offset_y": 0.6,
+                "closed": true
+            }
+        ]
+    },
+    "CL": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0.55,
+                "closed": true
+            }
+        ]
+    },
+    "IS": {
+        "airports": [
+            {
+                "offset_x": 0.3,
+                "offset_y": 0,
+                "closed": false
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.25,
+                "offset_y": 0.9,
+                "closed": false
+            }
+        ]
+    },
+    "NO": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.25,
+                "offset_y": 0.9,
+                "closed": false
+            }
+        ]
+    },
+    "SE": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.2,
+                "offset_y": 1,
+                "closed": false
+            }
+        ]
+    },
+    "GB": {
+        "airports": [
+            {
+                "offset_x": 0.75,
+                "offset_y": 0.7,
+                "closed": false
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.1,
+                "offset_y": 0.8,
+                "closed": false
+            },
+            {
+                "offset_x": 0.65,
+                "offset_y": 0.45,
+                "closed": false
+            }
+        ]
+    },
+    "FR": {
+        "airports": [
+            {
+                "offset_x": 0.3,
+                "offset_y": 0.45,
+                "closed": false
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0.2,
+                "closed": false
+            }
+        ]
+    },
+    "ES": {
+        "airports": [
+            {
+                "offset_x": 0.6,
+                "offset_y": 0.15,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.75,
+                "offset_y": 0.25,
+                "closed": true
+            }
+        ]
+    },
+    "DE": {
+        "airports": [
+            {
+                "offset_x": 0.5,
+                "offset_y": 0.4,
+                "closed": true
+            }
+        ],
+        "harbours": []
+    },
+    "IT": {
+        "airports": [
+            {
+                "offset_x": 0.4,
+                "offset_y": 0.35,
+                "closed": true
+            }
+        ],
+        "harbours": []
+    },
+    "EE": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0,
+                "closed": false
+            }
+        ]
+    },
+    "FI": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.6,
+                "offset_y": 0.8,
+                "closed": false
+            }
+        ]
+    },
+    "RU": {
+        "airports": [
+            {
+                "offset_x": 0.1,
+                "offset_y": 0.5,
+                "closed": true
+            }
+        ],
+        "harbours": []
+    },
+    "GH": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0.8,
+                "closed": true
+            }
+        ]
+    },
+    "ZA": {
+        "airports": [
+            {
+                "offset_x": 0.25,
+                "offset_y": 0.6,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.1,
+                "offset_y": 0.9,
+                "closed": true
+            }
+        ]
+    },
+    "MG": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.1,
+                "offset_y": 0.9,
+                "closed": true
+            }
+        ]
+    },
+    "EG": {
+        "airports": [
+            {
+                "offset_x": 0.4,
+                "offset_y": 0.2,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.4,
+                "offset_y": 0,
+                "closed": true
+            },
+            {
+                "offset_x": 0.6,
+                "offset_y": 0.3,
+                "closed": true
+            }
+        ]
+    },
+    "SA": {
+        "airports": [
+            {
+                "offset_x": 0.5,
+                "offset_y": 0.6,
+                "closed": true
+            }
+        ],
+        "harbours": []
+    },
+    "OM": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0.8,
+                "offset_y": 0.25,
+                "closed": false
+            }
+        ]
+    },
+    "IN": {
+        "airports": [
+            {
+                "offset_x": 0.45,
+                "offset_y": 0.45,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.3,
+                "offset_y": 0.9,
+                "closed": false
+            }
+        ]
+    },
+    "CN": {
+        "airports": [
+            {
+                "offset_x": 0.8,
+                "offset_y": 0.8,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.9,
+                "offset_y": 0.75,
+                "closed": true
+            }
+        ]
+    },
+    "JP": {
+        "airports": [
+            {
+                "offset_x": 0.4,
+                "offset_y": 0.5,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.75,
+                "offset_y": 0.6,
+                "closed": true
+            }
+        ]
+    },
+    "TH": {
+        "airports": [],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0.7,
+                "closed": false
+            }
+        ]
+    },
+    "ID": {
+        "airports": [
+            {
+                "offset_x": 0.4,
+                "offset_y": 0.4,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0.15,
+                "offset_y": 0.5,
+                "closed": true
+            },
+            {
+                "offset_x": 0.95,
+                "offset_y": 0.8,
+                "closed": true
+            }
+        ]
+    },
+    "AU": {
+        "airports": [
+            {
+                "offset_x": 0.9,
+                "offset_y": 0.5,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0.67,
+                "closed": true
+            },
+            {
+                "offset_x": 0.8,
+                "offset_y": 0.7,
+                "closed": true
+            }
+        ]
+    },
+    "NZ": {
+        "airports": [
+            {
+                "offset_x": 0.65,
+                "offset_y": 0.35,
+                "closed": true
+            }
+        ],
+        "harbours": [
+            {
+                "offset_x": 0,
+                "offset_y": 0.9,
+                "closed": true
+            }
+        ]
+    }
+}

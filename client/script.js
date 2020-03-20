@@ -3,9 +3,56 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
 
 socket.emit('get_cases');
+socket.emit('get_ports');
+
+// in: alpha 2 code, type ('airport', 'airport_closed', 'harbour', 'harbour_closed'), x/y in percentages
+const addPort = (country, type, offsetX, offsetY) => {
+  const path = document.querySelector(`path[data-id=${country}]`)
+  
+  const rect = path.getBoundingClientRect();
+
+  var x = rect.left + offsetX * rect.width;
+  var y = rect.top + offsetY * rect.height;
+
+  var elem = `<img class="port"
+                   src="static/img/${type}.jpg"
+                   style="left: ${x}px; top: ${y}px;"
+              />`
+
+  $("#ports").append(elem);
+}
+
+const drawPorts = () => {
+  if (window.portData) {
+    data = window.portData
+    Object.keys(data).map((country) => {
+      const airports = data[country]['airports']
+      const harbours = data[country]['harbours']
+
+      airports.forEach((airport) => {
+        const x = airport['offset_x'];
+        const y = airport['offset_y'];
+        const closed = airport['closed'];
+        const fileName = closed ? 'airport_closed' : 'airport';
+    
+        addPort(country, fileName, x, y);
+      })
+
+      harbours.forEach((airport) => {
+        const x = airport['offset_x'];
+        const y = airport['offset_y'];
+        const closed = airport['closed'];
+        const fileName = closed ? 'harbour_closed' : 'harbour';
+    
+        addPort(country, fileName, x, y);
+      })
+    })
+  }
+}
 
 const redrawMap = (id) => {
   if (id == "svgMap") {
+    $("#ports").empty()
     $("#svgMap .svgMap-map-wrapper").remove()
     $("#points").empty()
     window.map = new svgMap({
@@ -46,7 +93,9 @@ const redrawMap = (id) => {
     }
     
   } else if (id == "svgBg") {
+    // clearLayers();
     $("#svgBg .svgMap-map-wrapper").remove()
+
     window.bg = new svgMap({
       isClipPath: true,
       targetElementID: 'svgBg',
@@ -77,6 +126,7 @@ const redrawMap = (id) => {
       }
     });
   }
+  drawPorts();
 }
 
 redrawMap("svgBg")
@@ -165,8 +215,8 @@ const generatePointInCountry = (country, infected, population) => {
       numberDots = Math.round(area/2);
     }
 
-    console.log(area);
-    console.log(numberDots);
+    // console.log(area);
+    // console.log(numberDots);
 
     const minX = bbox.x;
     const minY = bbox.y;
@@ -223,6 +273,10 @@ socket.on('load_finish', (data) => {
   fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
 
   attachHandlers();
+})
+
+socket.on('ports_loaded', (data) => {
+  window.portData = data
 })
 
 const clearHandlers = () => {
