@@ -201,6 +201,8 @@ const pointInPolygon = function (point, vs) {
 // out: void, generates random pt in country path 
 const generatePointInCountry = (country, infected, population) => {
   // select path element
+  if (country.length != 2) return;
+  
   const path = document.querySelector(`path[data-id=${country}]`);
   if (path) {
     // rectangular bounding box
@@ -302,7 +304,7 @@ const attachHandlers = () => {
       dead = 'No data'
       population = '0'
     }
-    
+
     fill(flag, name, infected, dead, population)
   });
 
