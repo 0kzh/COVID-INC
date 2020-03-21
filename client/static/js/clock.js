@@ -105,41 +105,57 @@ function zeros(num) {
 initClock();
 updateClock();
 
-$("#first-day").click((e) => {
-    const disabled = e.currentTarget.classList.contains("disabled");
+const firstDay = () => {
+    const disabled = $("#first-day").hasClass("disabled");
     if (!disabled && window.day instanceof Date) {
         const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
         window.day = first;
         updateClock();
         update();
     }
-});
+}
 
-$("#prev-day").click((e) => {
-    const disabled = e.currentTarget.classList.contains("disabled");
+const prevDay = () => {
+    const disabled = $("#prev-day").hasClass("disabled");
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() - 1);
         updateClock();
         update();
     }
-});
+}
 
-$("#next-day").click((e) => {
-    const disabled = e.currentTarget.classList.contains("disabled");
+const nextDay = () => {
+    const disabled = $("#next-day").hasClass("disabled");
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
         updateClock();
         update();
     }
-});
+}
 
-$("#current-day").click((e) => {
-    const disabled = e.currentTarget.classList.contains("disabled");
+const currentDay = () => {
+    const disabled = $("#next-day").hasClass("#current-day");
     if (!disabled) {
         initClock();
         updateClock();
         update();
     }
+}
+
+$("#first-day").click((e) => {
+    firstDay();
+});
+
+$("#prev-day").click((e) => {
+    prevDay();
+});
+
+$("#next-day").click((e) => {
+    nextDay();
+});
+
+$("#current-day").click((e) => {
+    currentDay();
 });
 
 // END
