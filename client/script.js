@@ -54,6 +54,7 @@ const drawPorts = () => {
 
 const redrawMap = (id) => {
   if (id == "svgMap") {
+    $(".svgMap-tooltip").remove();
     $("#ports").empty();
     $("#svgMap .svgMap-map-wrapper").remove();
 
@@ -323,7 +324,7 @@ const updatePoints = (country, infected, population) => {
     $(child).show();
   });
   
-  if (maxData) {
+  if (maxData && maxData[country]) {
     const maxCases = maxData[country]['total_cases']
 
     // get ratio of cases of day of interest to present/max cases

@@ -111,7 +111,9 @@ const firstDay = () => {
         const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
         window.day = first;
         updateClock();
-        update();
+        if (!window.keyPressed) {
+            update();
+        }
     }
 }
 
@@ -120,7 +122,9 @@ const prevDay = () => {
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() - 1);
         updateClock();
-        update();
+        if (!window.keyPressed) {
+            update();
+        }
     }
 }
 
@@ -129,7 +133,9 @@ const nextDay = () => {
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
         updateClock();
-        update();
+        if (!window.keyPressed) {
+            update();
+        }
     }
 }
 
@@ -138,7 +144,9 @@ const currentDay = () => {
     if (!disabled) {
         initClock();
         updateClock();
-        update();
+        if (!window.keyPressed) {
+            update();
+        }
     }
 }
 
