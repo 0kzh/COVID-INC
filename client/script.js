@@ -245,7 +245,7 @@ const generatePoints = (country, infected, population) => {
     // infected = population; // max dots
 
     // make it look nice - scale by area, infected, and population
-    var numberDots = (Math.log(area)/60) * infected / Math.log(population);
+    var numberDots = (Math.sqrt(area)/1000) * infected / Math.log(population);
     // var numberDots = 30000; // stress test
     if (numberDots > area/12)
     {
@@ -284,13 +284,25 @@ const generatePoints = (country, infected, population) => {
       var len = poly.length;
       for (var j = 0; j < len; j++) {
         if (pointInPolygon([x, y], poly[j])) {
-          var size = 1.2;
+          // console.log("inside");
+          var size = Math.max(1.5, Math.random() * Math.log(area) / 3);
 
-          size = Math.max(1.2, Math.random() * Math.log(area) / 3);
-          opacity = Math.floor(Math.random() * (1 - 0.7) ) + 0.7;
+          var colour = "#670B07";
+          var colourSelect = Math.random();
+          if (colourSelect < 0.25) {
+            colour = "#560000";
+          }
+          else if (colourSelect < 0.50) {
+            colour = "#761E0D";
+          }
+          else if (colourSelect < 0.75) {
+            colour = "#862B15"
+          }
+          
+          var opacity = Math.floor(Math.random() * (1 - 0.7) ) + 0.7;
           
           g.append("circle")
-                    .attr("style", `fill: #670B07; fill-opacity: ${opacity};`)
+                    .attr("style", `fill: ${colour}; fill-opacity: ${opacity};`)
                     .attr("cx", x)
                     .attr("cy", y)
                     .attr("r", size);
@@ -373,6 +385,7 @@ const update = () => {
     updateWorldData(date);
     updateSelectedCountry(date);
     fillNewsBar(date);
+    setNewsToCurrDate();
   }
 }
 
