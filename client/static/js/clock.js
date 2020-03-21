@@ -4,6 +4,25 @@ function initClock() {
     window.day = today;
 }
 
+// checks if the set date is current day
+function isPresentDay() {
+    var today = new Date();
+    today = new Date(today.getTime() + today.getTimezoneOffset() * 60000);
+    today = today.setHours(0,0,0,0); // remove time
+
+    var setDate = window.day;
+    setDate = setDate.setHours(0,0,0,0); // remove time
+    return setDate == today;
+}
+
+function checkDisableNextDay() {
+    if (isPresentDay()) {
+        $("#next-day").addClass("disabled");
+    } else {
+        $("#next-day").removeClass("disabled");
+    }
+}
+
 function updateClock() {
     const day = window.day;
     
@@ -20,6 +39,8 @@ function updateClock() {
         document.getElementById('month').innerHTML = month;
         document.getElementById('date').innerHTML = date;
     }
+
+    checkDisableNextDay();
 }
 
 function twelveHour(hour) {
@@ -42,20 +63,25 @@ function zeros(num) {
 initClock();
 updateClock();
 
-$("#last-day").click(() => {
-    if (window.day instanceof Date) {
+$("#last-day").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() - 1);
         updateClock();
     }
 });
 
-$("#today").click(() => {
-    initClock();
-    updateClock();
+$("#today").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled) {
+        initClock();
+        updateClock();
+    }
 });
 
-$("#next-day").click(() => {
-    if (window.day instanceof Date) {
+$("#next-day").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
         updateClock();
     }

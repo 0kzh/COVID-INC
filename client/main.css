@@ -367,6 +367,12 @@ body {
   cursor: hand;
 }
 
+.disabled i {
+  background: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0px 0px 2px #888;
+  cursor: default !important;
+}
+
 #today {
   margin: 0 1em;
 }
