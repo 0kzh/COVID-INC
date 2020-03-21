@@ -1,7 +1,25 @@
-function initClock() {
+const formatDate = (date) => {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+  
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+  
+    return [year, month, day].join('-');
+  }
+
+const getCurrentDate = () => {
     var today = new Date();
     today = new Date(today.getTime() + today.getTimezoneOffset() * 60000); // convert to UTC/GMT for server processing
-    window.day = today;
+    return today;
+}
+
+const initClock = () => {
+    window.day = getCurrentDate();
 }
 
 // checks if the set date is current day

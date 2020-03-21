@@ -1,6 +1,7 @@
 var socket = io();
 const SVG_NS = "http://www.w3.org/2000/svg";
 const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
+var needUpdate = true;
 
 socket.emit('get_cases');
 socket.emit('get_news');
@@ -51,27 +52,14 @@ const drawPorts = () => {
   }
 }
 
-function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
 const redrawMap = (id) => {
   if (id == "svgMap") {
-    $("#ports").empty()
-    $("#svgMap .svgMap-map-wrapper").remove()
-    $("#points").empty()
+    $("#ports").empty();
+    $("#svgMap .svgMap-map-wrapper").remove();
 
-    const date = formatDate(window.day)
+    const date = formatDate(window.day);
+    const today = formatDate(getCurrentDate());
+    const todayData = window.data ? window.data[today] : {}
     const data = window.data ? window.data[date] : {}
 
     window.map = new svgMap({
@@ -136,10 +124,18 @@ const redrawMap = (id) => {
       }
     });
 
+    if (todayData && needUpdate) {
+      $("#points").empty();
+      Object.keys(data).forEach((key) => {
+        generatePoints(key, data[key]['total_cases'], data[key]['population']);
+        needUpdate = false;
+      });
+    }
+
     if (data) {
       // generate points
       Object.keys(data).forEach((key) => {
-        generatePointInCountry(key, data[key]['total_cases'], data[key]['population'])
+        updatePoints(key, data[key]['total_cases'], data[key]['population']);
       });
     }
     
@@ -168,6 +164,7 @@ const redrawMap = (id) => {
 redrawMap("svgBg")
 
 window.addEventListener("resize", function() {
+  needUpdate = true; // we need an update after resize
   checkOrientation();
   redrawMap("svgBg")
   redrawMap("svgMap")
@@ -235,7 +232,7 @@ const pointInPolygon = function (point, vs) {
 
 // in: 2-letter abbreviation of country (ex. RU, CA, US, CN)
 // out: void, generates random pt in country path 
-const generatePointInCountry = (country, infected, population) => {
+const generatePoints = (country, infected, population) => {
   // select path element
   if (country.length != 2) return;
   
@@ -274,6 +271,7 @@ const generatePointInCountry = (country, infected, population) => {
     // draw dots
     var g = d3.select("#points")
                 .append("g")
+                .attr("country", country)
                 .attr("transform", window.transform);
     
     // let g = document.createElementNS(SVG_NS, "g");
@@ -286,7 +284,6 @@ const generatePointInCountry = (country, infected, population) => {
       var len = poly.length;
       for (var j = 0; j < len; j++) {
         if (pointInPolygon([x, y], poly[j])) {
-          // console.log("inside");
           var size = 1.2;
 
           size = Math.max(1.2, Math.random() * Math.log(area) / 3);
@@ -305,6 +302,36 @@ const generatePointInCountry = (country, infected, population) => {
   }
 };
 
+const updatePoints = (country, infected, population) => {
+  const max = formatDate(getCurrentDate());
+  const maxData = window.data ? window.data[max] : {}
+  const parent = $(`g[country="${country}"]`)
+  const children = parent.children();
+  children.each((i, child) => {
+    $(child).show();
+  });
+  
+  if (maxData) {
+    const maxCases = maxData[country]['total_cases']
+
+    // get ratio of cases of day of interest to present/max cases
+    const ratio = 1 - (infected / maxCases);
+    console.log(ratio)
+
+    const numPoints = children.length;
+    const hideCount = Math.floor(ratio * numPoints);
+
+    children.each((i, child) => {
+      if (i < hideCount) {
+        // console.log(child);
+        $(child).hide()
+      } else {
+        return;
+      }
+    })
+  }
+}
+
 var selectedCountry = 'WR';
 const updateSelectedCountry = (date) => {
   if (selectedCountry == 'WR'){
@@ -315,7 +342,7 @@ const updateSelectedCountry = (date) => {
   // populate data
   const name = window.map.countries[selectedCountry];
   const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${selectedCountry.toLowerCase()}.svg`;
-  var infected, dead, population;
+  let infected, dead, population;
   if (window.data[date][selectedCountry]) {
     infected = window.data[date][selectedCountry]['total_cases'];
     dead = window.data[date][selectedCountry]['total_deaths'];
