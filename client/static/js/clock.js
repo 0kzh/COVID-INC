@@ -1,28 +1,46 @@
-const date = true;
-const time = false;
-
-function clock() {
+function initClock() {
     var today = new Date();
-    var year = today.getFullYear();
-    var month = zeros(today.getMonth() + 1); // get month returns 0-11
-    var date = zeros(today.getDate());
+    today = new Date(today.getTime() + today.getTimezoneOffset() * 60000); // convert to UTC/GMT for server processing
+    window.day = today;
+}
 
-    var hour = zeros(twelveHour(today.getHours()));
-    var minutes = zeros(today.getMinutes());
-    var seconds = zeros(today.getSeconds());
-    // console.log(today.toLocaleTimeString());
+// checks if the set date is current day
+function isPresentDay() {
+    var today = new Date();
+    today = new Date(today.getTime() + today.getTimezoneOffset() * 60000);
+    today = today.setHours(0,0,0,0); // remove time
 
-    if (date) {
+    var setDate = window.day;
+    setDate = setDate.setHours(0,0,0,0); // remove time
+    return setDate == today;
+}
+
+function checkDisableNextDay() {
+    if (isPresentDay()) {
+        $("#next-day").addClass("disabled");
+    } else {
+        $("#next-day").removeClass("disabled");
+    }
+}
+
+function updateClock() {
+    const day = window.day;
+    
+    if (day instanceof Date) {
+        const year = day.getFullYear();
+        const month = zeros(day.getMonth() + 1); // get month returns 0-11
+        const date = zeros(day.getDate());
+        const hour = zeros(twelveHour(day.getHours()));
+        const minutes = zeros(day.getMinutes());
+        const seconds = zeros(day.getSeconds());
+        // console.log(today.toLocaleTimeString());
+
         document.getElementById('year').innerHTML = year;
         document.getElementById('month').innerHTML = month;
         document.getElementById('date').innerHTML = date;
     }
 
-    if (time) {
-        document.getElementById('hour').innerHTML = hour;
-        document.getElementById('min').innerHTML = minutes;
-        document.getElementById('sec').innerHTML = seconds;
-    }
+    checkDisableNextDay();
 }
 
 function twelveHour(hour) {
@@ -42,10 +60,31 @@ function zeros(num) {
     return num;
 }
 
-function dateTime() {
-    clock();
-    setTimeout(dateTime, 500);
-}
+initClock();
+updateClock();
 
-dateTime();
+$("#last-day").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled && window.day instanceof Date) {
+        window.day.setDate(window.day.getDate() - 1);
+        updateClock();
+    }
+});
+
+$("#today").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled) {
+        initClock();
+        updateClock();
+    }
+});
+
+$("#next-day").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled && window.day instanceof Date) {
+        window.day.setDate(window.day.getDate() + 1);
+        updateClock();
+    }
+});
+
 // END
