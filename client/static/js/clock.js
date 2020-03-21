@@ -68,6 +68,7 @@ $("#last-day").click((e) => {
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() - 1);
         updateClock();
+        update();
     }
 });
 
@@ -76,6 +77,7 @@ $("#today").click((e) => {
     if (!disabled) {
         initClock();
         updateClock();
+        update();
     }
 });
 
@@ -84,6 +86,7 @@ $("#next-day").click((e) => {
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
         updateClock();
+        update();
     }
 });
 

@@ -51,11 +51,29 @@ const drawPorts = () => {
   }
 }
 
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
 const redrawMap = (id) => {
   if (id == "svgMap") {
     $("#ports").empty()
     $("#svgMap .svgMap-map-wrapper").remove()
     $("#points").empty()
+
+    const date = formatDate(window.day)
+    const data = window.data ? window.data[date] : {}
+
     window.map = new svgMap({
       isClipPath: false,
       targetElementID: 'svgMap',
@@ -82,7 +100,7 @@ const redrawMap = (id) => {
           }
         },
         applyData: 'log_total_cases',
-        values: window.data ? window.data : {}
+        values: data
       }
     });
 
@@ -263,17 +281,28 @@ const generatePointInCountry = (country, infected, population) => {
   }
 };
 
+const updateWorldData = (date) => {
+  // populate world data
+  window.world_infected = data[date]['WR']['total_cases']
+  window.world_dead = data[date]['WR']['total_deaths']
+  window.world_population = 7771104755
+  fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
+}
+
+const update = () => {
+  if (window.day) {
+    const date = formatDate(window.day)
+  
+    redrawMap("svgMap")
+    updateWorldData(date);
+  }
+}
+
 socket.on('load_finish', (data) => {
   console.log(data)
   window.data = data
-
-  redrawMap("svgMap")
-
-  // populate world data
-  window.world_infected = data['WR']['total_cases']
-  window.world_dead = data['WR']['total_deaths']
-  window.world_population = 7771104755
-  fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
+  
+  update();
 
   attachHandlers();
 });

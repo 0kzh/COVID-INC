@@ -51,22 +51,8 @@ function httpsRedir(req, res, next) {
   res.redirect('https://' + req.hostname + req.url);
 }
 
-function formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
-function getCases(day, callback){
-  request('https://af18f64x36.execute-api.us-east-1.amazonaws.com/prod/coronavirus?day=' + day, (error, response, body) => {
+function getCases(callback){
+  request('https://af18f64x36.execute-api.us-east-1.amazonaws.com/prod/coronavirus', (error, response, body) => {
     if (!error && response.statusCode == 200) {
       var importedJSON = JSON.parse(body);
       callback(importedJSON);
@@ -97,10 +83,9 @@ function getPorts() {
   return readJsonFileSync(filepath);
 }
 
-const now = formatDate(new Date());
 io.on('connection', function(socket){
-  socket.on('get_cases', function(day=now){
-    getCases(day, (json) => {
+  socket.on('get_cases', function(){
+    getCases((json) => {
       socket.json.emit('load_finish', json);
     });
   });
