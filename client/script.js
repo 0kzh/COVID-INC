@@ -68,7 +68,7 @@ const redrawMap = (id) => {
       targetElementID: 'svgMap',
       initialZoom: 1,
       minZoom: 1,
-      maxZoom: 1,
+      maxZoom: 10,
       data: {
         data: {
           total_cases: {
@@ -166,7 +166,7 @@ const redrawMap = (id) => {
       targetElementID: 'svgBg',
       initialZoom: 1,
       minZoom: 1,
-      maxZoom: 1,
+      maxZoom: 10,
       data: {
         data: {
           gdp: {}

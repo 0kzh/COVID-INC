@@ -74,6 +74,7 @@ body {
   bottom: 0;
   margin: 1vh;
   text-align: left;
+  z-index: 10;
 
   -webkit-clip-path: polygon(0% 0%,     calc(100% - 2.1vh) 0%,  100% 2.1vh, 
                              100% 100%, 0% 100%);
@@ -113,7 +114,7 @@ body {
   border-style: solid;
   border-color: #FFFFFF;
   border-width: 1px;
-  z-index: 1000;
+  z-index: 20;
 }
 
 .news-button {
@@ -126,7 +127,7 @@ body {
   width: 40vw;
   height: 3.5vh;
   left: calc(8vw + 4vh);
-  z-index: 999;
+  z-index: 6;
 }
 
 @keyframes slide {
@@ -172,7 +173,7 @@ body {
 .modal {
   display: none; /* Hidden by default */
   position: absolute; /* Stay in place */
-  z-index: 100000; /* Sit on top */
+  z-index: 100; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -293,7 +294,7 @@ body {
   padding: 1vh 4vh;
   margin: 1vh;
   right: 0;
-  z-index: 999;
+  z-index: 20;
   display: flex;
   align-items: center;
 }
@@ -345,7 +346,8 @@ body {
   padding: 1vh;
   height: 16vh;
   width: calc(100% - 50vh);
-  max-width: 100vh;;
+  max-width: 100vh;
+  z-index: 10;
   /* margin: 0.5vw; */
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -475,7 +477,7 @@ body {
   pointer-events: none;
   height: 1vh;
   width: 1vh;
-  z-index: 999;
+  z-index: 3;
 }
 
 .date-nav {
