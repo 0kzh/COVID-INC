@@ -362,22 +362,43 @@ const updatePoints = (country, infected, population) => {
   }
 }
 
-const getInfectedCount = (date, selectedCountry) => {
-  // Set to active - number of infections
-  var infected = window.data[date][selectedCountry]['active'];
-  if (infected == -1) {
-    // If active doesn't exist, set to total cases
-    infected = window.data[date][selectedCountry]['total_cases'];
-    // If recovered exists, subtract from total cases
-    recovered = window.data[date][selectedCountry]['recovered'];
-    if (recovered != -1) {
-      infected -= recovered;
+var useTotalCases = true;
+$(document).ready(function() {
+
+  $("#toggle-infected").click((e) => {
+    if (useTotalCases == true) {
+      useTotalCases = false;
+      $("[id^='toggle-infected-'").toggleClass("toggle-infected-disable");
     }
+    else {
+      useTotalCases = true;
+      $("[id^='toggle-infected-'").toggleClass("toggle-infected-disable");
+    }
+    update();
+  });
+
+});
+
+const getInfectedCount = (date, selectedCountry) => {
+  // Use active cases
+  if (!useTotalCases) {
+    // Set to active - number of infections
+    var infected = window.data[date][selectedCountry]['active'];
+    if (infected == -1) {
+      // If active doesn't exist, set to total cases
+      infected = window.data[date][selectedCountry]['total_cases'];
+      // If recovered exists, subtract from total cases
+      recovered = window.data[date][selectedCountry]['recovered'];
+      if (recovered != -1) {
+        infected -= recovered;
+      }
+    }
+    return infected;
   }
-  return infected;
-  
-  // Uncomment to not use active cases
-  // return window.data[date][selectedCountry]['total_cases'];
+  // Use total cases
+  else {
+    return window.data[date][selectedCountry]['total_cases'];
+  }
 }
 
 var selectedCountry = 'WR';

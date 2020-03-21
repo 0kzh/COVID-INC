@@ -375,6 +375,27 @@ body {
   width: calc(100% - 32vh);
 }
 
+.card-info .content .toggle-infected {
+  position: absolute; 
+  font-size: 2.5vh; 
+  cursor: pointer; 
+  right: 0; 
+  top: 0; 
+  margin-top: 3%;
+  margin-right: 2%; 
+  padding: 1%;
+  text-align: center; 
+  width: 20%;
+  border: 2px;
+  border-style: solid;
+  border-color: #888;
+  color: #FFF;
+}
+
+.card-info .content .toggle-infected-disable {
+  color: #666;
+}
+
 @media only screen and (max-width: 130vh) {
   .card-info {
     min-width: 48vh;

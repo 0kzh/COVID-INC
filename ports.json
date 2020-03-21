@@ -4,14 +4,14 @@
             {
                 "offset_x": 0.6,
                 "offset_y": 0.8,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.8,
                 "offset_y": 0.65,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -20,14 +20,14 @@
             {
                 "offset_x": 0.7,
                 "offset_y": 0.6,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.85,
                 "offset_y": 0.65,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -73,7 +73,7 @@
             {
                 "offset_x": 0.3,
                 "offset_y": 0.1,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -99,7 +99,7 @@
             {
                 "offset_x": 0.35,
                 "offset_y": 0.6,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -109,7 +109,7 @@
             {
                 "offset_x": 0,
                 "offset_y": 0.55,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -191,14 +191,14 @@
             {
                 "offset_x": 0.6,
                 "offset_y": 0.15,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.75,
                 "offset_y": 0.25,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -207,7 +207,7 @@
             {
                 "offset_x": 0.5,
                 "offset_y": 0.4,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": []
@@ -217,7 +217,7 @@
             {
                 "offset_x": 0.4,
                 "offset_y": 0.35,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": []
@@ -247,7 +247,7 @@
             {
                 "offset_x": 0.1,
                 "offset_y": 0.5,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": []
@@ -258,7 +258,7 @@
             {
                 "offset_x": 0,
                 "offset_y": 0.8,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -267,14 +267,14 @@
             {
                 "offset_x": 0.25,
                 "offset_y": 0.6,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.1,
                 "offset_y": 0.9,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -284,7 +284,7 @@
             {
                 "offset_x": 0.1,
                 "offset_y": 0.9,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -293,19 +293,19 @@
             {
                 "offset_x": 0.4,
                 "offset_y": 0.2,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.4,
                 "offset_y": 0,
-                "closed": true
+                "closed": false
             },
             {
                 "offset_x": 0.6,
                 "offset_y": 0.3,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -314,7 +314,7 @@
             {
                 "offset_x": 0.5,
                 "offset_y": 0.6,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": []
@@ -334,7 +334,7 @@
             {
                 "offset_x": 0.45,
                 "offset_y": 0.45,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
@@ -350,14 +350,14 @@
             {
                 "offset_x": 0.8,
                 "offset_y": 0.8,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.9,
                 "offset_y": 0.75,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -366,14 +366,14 @@
             {
                 "offset_x": 0.4,
                 "offset_y": 0.5,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.75,
                 "offset_y": 0.6,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -392,19 +392,19 @@
             {
                 "offset_x": 0.4,
                 "offset_y": 0.4,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0.15,
                 "offset_y": 0.5,
-                "closed": true
+                "closed": false
             },
             {
                 "offset_x": 0.95,
                 "offset_y": 0.8,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -413,19 +413,19 @@
             {
                 "offset_x": 0.9,
                 "offset_y": 0.5,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
             {
                 "offset_x": 0,
                 "offset_y": 0.67,
-                "closed": true
+                "closed": false
             },
             {
                 "offset_x": 0.8,
                 "offset_y": 0.7,
-                "closed": true
+                "closed": false
             }
         ]
     },
@@ -434,7 +434,7 @@
             {
                 "offset_x": 0.65,
                 "offset_y": 0.35,
-                "closed": true
+                "closed": false
             }
         ],
         "harbours": [
