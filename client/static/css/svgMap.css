@@ -90,7 +90,7 @@ body {
   clip-path: url(#countries);
 }
 
-#svgMap-countries {
+#transform-wrapper {
   transform-origin: top left;
 }
 

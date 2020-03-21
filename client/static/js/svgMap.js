@@ -1759,23 +1759,6 @@ module.exports = {
         "," +
         matrix.f +
         ")";
-    
-    const scaleRatio = img.width() / window.innerWidth;
-
-    var bg =
-        "matrix(" +
-        matrix.a * scaleRatio +
-        "," +
-        matrix.b +
-        "," +
-        matrix.c +
-        "," +
-        matrix.d * scaleRatio +
-        "," +
-        matrix.e +
-        "," +
-        matrix.f +
-        ")";
 
     window.transform = s;
 
@@ -1787,7 +1770,7 @@ module.exports = {
 
     // scale topographical overlay
     if (els.length > 0) {
-      img.css({transform: bg})
+      $("#transform-wrapper").css({transform: s})
     }
 
     window.transformPoints();
