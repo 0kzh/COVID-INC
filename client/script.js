@@ -279,7 +279,6 @@ socket.on('load_finish', (data) => {
 
 socket.on('ports_loaded', (data) => {
   window.portData = data
-  console.log(window.data);
 })
 
 const clearHandlers = () => {

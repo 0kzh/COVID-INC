@@ -1,4 +1,4 @@
-function fill(flag, name, infected, dead, healthy) {
+function fill(flag, name, infected, dead, total) {
 
     countDead = document.getElementById('dead-count');
     if (dead === 'No data') {
@@ -18,7 +18,7 @@ function fill(flag, name, infected, dead, healthy) {
         countInfected.innerHTML = infected.toLocaleString();
     }
 
-    total = infected + dead + healthy;
+    healthy = total - dead - infected;
 
     console.log(total + " " + dead + " " + infected + " " + healthy);
 

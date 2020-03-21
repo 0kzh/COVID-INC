@@ -1,3 +1,6 @@
+const date = true;
+const time = false;
+
 function clock() {
     var today = new Date();
     var year = today.getFullYear();
@@ -9,13 +12,17 @@ function clock() {
     var seconds = zeros(today.getSeconds());
     // console.log(today.toLocaleTimeString());
 
-    document.getElementById('year').innerHTML = year;
-    document.getElementById('month').innerHTML = month;
-    document.getElementById('date').innerHTML = date;
+    if (date) {
+        document.getElementById('year').innerHTML = year;
+        document.getElementById('month').innerHTML = month;
+        document.getElementById('date').innerHTML = date;
+    }
 
-    document.getElementById('hour').innerHTML = hour;
-    document.getElementById('min').innerHTML = minutes;
-    document.getElementById('sec').innerHTML = seconds;
+    if (time) {
+        document.getElementById('hour').innerHTML = hour;
+        document.getElementById('min').innerHTML = minutes;
+        document.getElementById('sec').innerHTML = seconds;
+    }
 }
 
 function twelveHour(hour) {
