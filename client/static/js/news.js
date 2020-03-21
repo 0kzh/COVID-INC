@@ -90,7 +90,7 @@ function populateNews() {
         return;
     }
 
-    Object.keys(window.newsData).forEach((key) => {
+    Object.keys(window.newsData).sort().reverse().forEach((key) => {
         var dateTableHeader = "<tr><th>" + key + "</th></tr>";
         $("#news-headlines").append(dateTableHeader);
 
@@ -112,27 +112,27 @@ function populateNews() {
     fillNewsBar(new Date());
 }
 
-window.newsData = {
-    "2020-03-20": [
-        {
-            headline: "UK closes pubs, cafes and bars, and announces other measures",
-            description: `<p>– In his daily briefing, the UK Prime Minister Boris Johnson announced that cafes, pubs, and bars to close, as well as shops, theatres and leisure centres, are to close to protect public health.</p>
-            <p>– The government are deferring taxes to the end of the financial year, as well as waiving VAT for some businesses. It will also provide a job retention scheme to pay 80% of wages for those who cannot work due to the pandemic.</p>
-            <p>&nbsp;</p>
-            <p>Syria banned entry of visitors from multiple countries affected by the coronavirus pandemic. The government said that the cases in the nation remain zero.</p>`
-        },
-        {
-            headline: "Germany cases jump to 13,957",
-            description: `<p>– Germany’s Robert Koch Institute (RKI) reported that the number of cases surged by 2,958 to 13,957.</p>
-            <p>– The number of deaths increased by 11 to 31.</p>`
-        },
-        {
-            headline: "Spain’s deaths cross 1,000",
-            description: `<p>– The death toll in Spain increased to 1,002 from 767, said the country’s health emergencies chief Fernando Simon .</p>
-            <p>– The number of cases jumped to 19,980 from 17,147 on Thursday.<strong><br>
-            </strong></p>`
-        }
-    ]
-};
+// window.newsData = {
+//     "2020-03-20": [
+//         {
+//             headline: "UK closes pubs, cafes and bars, and announces other measures",
+//             description: `<p>– In his daily briefing, the UK Prime Minister Boris Johnson announced that cafes, pubs, and bars to close, as well as shops, theatres and leisure centres, are to close to protect public health.</p>
+//             <p>– The government are deferring taxes to the end of the financial year, as well as waiving VAT for some businesses. It will also provide a job retention scheme to pay 80% of wages for those who cannot work due to the pandemic.</p>
+//             <p>&nbsp;</p>
+//             <p>Syria banned entry of visitors from multiple countries affected by the coronavirus pandemic. The government said that the cases in the nation remain zero.</p>`
+//         },
+//         {
+//             headline: "Germany cases jump to 13,957",
+//             description: `<p>– Germany’s Robert Koch Institute (RKI) reported that the number of cases surged by 2,958 to 13,957.</p>
+//             <p>– The number of deaths increased by 11 to 31.</p>`
+//         },
+//         {
+//             headline: "Spain’s deaths cross 1,000",
+//             description: `<p>– The death toll in Spain increased to 1,002 from 767, said the country’s health emergencies chief Fernando Simon .</p>
+//             <p>– The number of cases jumped to 19,980 from 17,147 on Thursday.<strong><br>
+//             </strong></p>`
+//         }
+//     ]
+// };
 
-populateNews();
+// populateNews();

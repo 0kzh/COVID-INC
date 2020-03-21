@@ -74,6 +74,15 @@ function getCases(day, callback){
   })
 }
 
+function getNews(callback) {
+  request('https://6ezcou7jl9.execute-api.us-east-1.amazonaws.com/default/news', (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      var importedJSON = JSON.parse(body);
+      callback(importedJSON);
+    }
+  })
+}
+
 function readJsonFileSync(filepath, encoding){
   if (typeof (encoding) == 'undefined'){
       encoding = 'utf8';
@@ -93,6 +102,14 @@ io.on('connection', function(socket){
   socket.on('get_cases', function(day=now){
     getCases(day, (json) => {
       socket.json.emit('load_finish', json);
+    });
+  });
+
+  socket.on('get_news', function() {
+    console.log("getting news");
+    getNews((json) => {
+      console.log(json);
+      socket.json.emit('news_loaded', json);
     });
   });
 

@@ -3,6 +3,7 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 const icon = "https://cdn.mos.cms.futurecdn.net/JtVH5Khvihib7dBDFY9ZDR.jpg"
 
 socket.emit('get_cases');
+socket.emit('get_news');
 socket.emit('get_ports');
 
 // in: alpha 2 code, type ('airport', 'airport_closed', 'harbour', 'harbour_closed'), x/y in percentages
@@ -275,7 +276,13 @@ socket.on('load_finish', (data) => {
   fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
 
   attachHandlers();
-})
+});
+
+socket.on('news_loaded', (data) => {
+  console.log(data);
+  window.newsData = data;
+  populateNews();
+});
 
 socket.on('ports_loaded', (data) => {
   window.portData = data
