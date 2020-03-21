@@ -85,16 +85,13 @@ body {
   height: 85%;
 }
 
-#svgMap-countries {
-  background: url("../img/topographical.jpg");
+#bg-wrapper {
   -webkit-clip-path: url(#countries);
   clip-path: url(#countries);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-size: cover;
-  pointer-events:none;
+}
+
+#svgMap-countries {
+  transform-origin: top left;
 }
 
 .svgMap-map-wrapper {

@@ -5,6 +5,11 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var SvgUtils = require("./svg-utilities");
 
+window.transformPoints = (() => {
+  const points = $("g[country]");
+  points.attr("transform", window.transform);
+});
+
 module.exports = {
   enable: function(instance) {
     // Select (and create if necessary) defs
@@ -808,13 +813,13 @@ SvgPanZoom.prototype.enableMouseWheelZoom = function() {
 
     // Bind wheelListener
     var isPassiveListener = !this.options.preventMouseEventsDefault;
-    // Wheel.on(
-    //   this.options.eventsListenerElement || this.svg,
-    //   this.wheelListener,
-    //   isPassiveListener
-    // );
+    Wheel.on(
+      this.options.eventsListenerElement || this.svg,
+      this.wheelListener,
+      isPassiveListener
+    );
 
-    // this.options.mouseWheelZoomEnabled = true;
+    this.options.mouseWheelZoomEnabled = true;
   }
 };
 
@@ -1085,16 +1090,16 @@ SvgPanZoom.prototype.handleMouseDown = function(evt, prevEvt) {
   Utils.mouseAndTouchNormalize(evt, this.svg);
 
   // Double click detection; more consistent than ondblclick
-  // if (this.options.dblClickZoomEnabled && Utils.isDblClick(evt, prevEvt)) {
-  //   this.handleDblClick(evt);
-  // } else {
-  //   // Pan mode
-  //   this.state = "pan";
-  //   this.firstEventCTM = this.viewport.getCTM();
-  //   this.stateOrigin = SvgUtils.getEventPoint(evt, this.svg).matrixTransform(
-  //     this.firstEventCTM.inverse()
-  //   );
-  // }
+  if (this.options.dblClickZoomEnabled && Utils.isDblClick(evt, prevEvt)) {
+    this.handleDblClick(evt);
+  } else {
+    // Pan mode
+    this.state = "pan";
+    this.firstEventCTM = this.viewport.getCTM();
+    this.stateOrigin = SvgUtils.getEventPoint(evt, this.svg).matrixTransform(
+      this.firstEventCTM.inverse()
+    );
+  }
 };
 
 /**
@@ -1738,8 +1743,9 @@ module.exports = {
    * @param {SVGElement} defs
    */
   setCTM: function(element, matrix, defs) {
-    var that = this,
-      s =
+    var that = this;
+    const img = $("#svgMap-countries")
+    var s =
         "matrix(" +
         matrix.a +
         "," +
@@ -1753,9 +1759,40 @@ module.exports = {
         "," +
         matrix.f +
         ")";
+    
+    const scaleRatio = img.width() / window.innerWidth;
+
+    var bg =
+        "matrix(" +
+        matrix.a * scaleRatio +
+        "," +
+        matrix.b +
+        "," +
+        matrix.c +
+        "," +
+        matrix.d * scaleRatio +
+        "," +
+        matrix.e +
+        "," +
+        matrix.f +
+        ")";
 
     window.transform = s;
-    element.setAttributeNS(null, "transform", s);
+
+    const els = document.getElementsByClassName("svg-pan-zoom_viewport")
+    // update all map images
+    Array.prototype.forEach.call(els, function(el) {
+      el.setAttributeNS(null, "transform", s);
+    });
+
+    // scale topographical overlay
+    if (els.length > 0) {
+      img.css({transform: bg})
+    }
+
+    window.transformPoints();
+    window.drawPorts();
+
     // document.getElementById("data-points").setAttributeNS(null, "transform", s);
     // if ("transform" in element.style) {
     //   element.style.transform = s;

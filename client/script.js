@@ -24,7 +24,8 @@ const addPort = (country, type, offsetX, offsetY) => {
   $("#ports").append(elem);
 }
 
-const drawPorts = () => {
+window.drawPorts = () => {
+  $("#ports").empty();
   if (window.portData) {
     portData = window.portData
     Object.keys(portData).map((country) => {
@@ -55,7 +56,6 @@ const drawPorts = () => {
 const redrawMap = (id) => {
   if (id == "svgMap") {
     $(".svgMap-tooltip").remove();
-    $("#ports").empty();
     $("#svgMap .svgMap-map-wrapper").remove();
 
     const date = formatDate(window.day);
