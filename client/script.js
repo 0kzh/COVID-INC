@@ -396,6 +396,7 @@ socket.on('load_finish', (data) => {
   window.data = data
   
   data_loaded = true;
+  initSlider();
   update();
 });
 

@@ -115,6 +115,7 @@ const firstDay = () => {
             update();
         }
     }
+    updateSlider();
 }
 
 const prevDay = () => {
@@ -126,6 +127,7 @@ const prevDay = () => {
             update();
         }
     }
+    updateSlider();
 }
 
 const nextDay = () => {
@@ -137,6 +139,7 @@ const nextDay = () => {
             update();
         }
     }
+    updateSlider();
 }
 
 const currentDay = () => {
@@ -148,6 +151,39 @@ const currentDay = () => {
             update();
         }
     }
+    updateSlider();
+}
+
+const nDaysfromStart = (days) => {
+    const offset = days*24*60*60*1000;
+
+    const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
+    const target = new Date(first.getTime() + offset);
+    window.day = target;
+    updateClock();
+    if (!window.keyPressed) {
+        update();
+    }
+    updateSlider();
+}
+
+const initSlider = () => {
+    const data = window.data;
+    const slider = $("#slider");
+    if (data) {
+      const numDays = Object.keys(data).length;
+      slider.attr("max", numDays)
+            .attr("value", numDays)
+    }
+}
+  
+const updateSlider = () => {
+    const day = window.day;
+    const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
+    const one_day = 1000 * 60 * 60 * 24 
+    const diff = Math.round(day.getTime() - first.getTime()) / one_day;
+    console.log(diff);
+    $("#slider").val(diff);
 }
 
 $("#first-day").click((e) => {
@@ -165,5 +201,11 @@ $("#next-day").click((e) => {
 $("#current-day").click((e) => {
     currentDay();
 });
+
+$("#slider").change((e) => {
+    const numDays = $("#slider").val();
+    console.log(numDays);
+    nDaysfromStart(numDays);
+})
 
 // END
