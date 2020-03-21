@@ -104,10 +104,10 @@ const redrawMap = (id) => {
       }
     });
 
-    if (window.data) {
+    if (data) {
       // generate points
-      Object.keys(window.data).forEach((key) => {
-        generatePointInCountry(key, window.data[key]['total_cases'], window.data[key]['population'])
+      Object.keys(data).forEach((key) => {
+        generatePointInCountry(key, data[key]['total_cases'], data[key]['population'])
       });
     }
     
@@ -281,40 +281,75 @@ const generatePointInCountry = (country, infected, population) => {
   }
 };
 
+var selectedCountry = 'WR';
+const updateSelectedCountry = (date) => {
+  if (selectedCountry == 'WR'){
+    updateWorldData(date);
+    fill(icon, "World", window.world_infected, window.world_dead, window.world_population);
+    return;
+  }
+  // populate data
+  const name = window.map.countries[selectedCountry];
+  const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${selectedCountry.toLowerCase()}.svg`;
+  var infected, dead, population;
+  if (window.data[date][selectedCountry]) {
+    infected = window.data[date][selectedCountry]['total_cases'];
+    dead = window.data[date][selectedCountry]['total_deaths'];
+    population = window.data[date][selectedCountry]['population'];
+  } else {
+    infected = 'No data';
+    dead = 'No data';
+    population = '0';
+  }
+  fill(flag, name, infected, dead, population);
+}
+
 const updateWorldData = (date) => {
   // populate world data
-  window.world_infected = data[date]['WR']['total_cases']
-  window.world_dead = data[date]['WR']['total_deaths']
-  window.world_population = 7771104755
-  fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
+  window.world_infected = data[date]['WR']['total_cases'];
+  window.world_dead = data[date]['WR']['total_deaths'];
+  window.world_population = 7771104755;
 }
 
 const update = () => {
-  if (window.day) {
-    const date = formatDate(window.day)
-  
-    redrawMap("svgMap")
+  var date = formatDate(window.day);
+
+  if (data_loaded &&
+      news_loaded &&
+      ports_loaded) {
+    redrawMap("svgMap");
+    attachHandlers();
     updateWorldData(date);
+    updateSelectedCountry(date);
+    fillNewsBar(date);
   }
 }
 
+var data_loaded = false;
 socket.on('load_finish', (data) => {
   console.log(data)
   window.data = data
   
+  data_loaded = true;
   update();
-
-  attachHandlers();
 });
 
+var news_loaded = false;
 socket.on('news_loaded', (data) => {
   console.log(data);
   window.newsData = data;
   populateNews();
+
+  news_loaded = true;
+  update();
 });
 
+var ports_loaded = false;
 socket.on('ports_loaded', (data) => {
-  window.portData = data
+  window.portData = data;
+
+  ports_loaded = true;
+  update();
 })
 
 const clearHandlers = () => {
@@ -325,25 +360,29 @@ const clearHandlers = () => {
 const attachHandlers = () => {
   $('path[id^="svgMap-map-country"]').on("click touchstart", (e) => {
     e.stopPropagation();
-    const country = e.target.getAttribute("data-id")
+    const country = e.target.getAttribute("data-id");
     const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${country.toLowerCase()}.svg`
-    const name = window.map.countries[country]
+    const name = window.map.countries[country];
+
+    const date = formatDate(window.day);
 
     var infected, dead, population;
-    if (window.data[country]) {
-      infected = window.data[country]['total_cases']
-      dead = window.data[country]['total_deaths']
-      population = window.data[country]['population']
+    if (window.data[date][country]) {
+      infected = window.data[date][country]['total_cases']
+      dead = window.data[date][country]['total_deaths']
+      population = window.data[date][country]['population']
     } else {
       infected = 'No data'
       dead = 'No data'
       population = '0'
     }
 
-    fill(flag, name, infected, dead, population)
+    fill(flag, name, infected, dead, population);
+
+    selectedCountry = country;
   });
 
   $('.svgMap-map-wrapper').on("click touchstart", (e) => {
-    fill(icon, "World", window.world_infected, window.world_dead, window.world_population)
+    fill(icon, "World", window.world_infected, window.world_dead, window.world_population);
   });
 }

@@ -7,7 +7,7 @@ $(document).ready(function() {
         // $('#news-modal').css("transform","translate(0,0)");
         $("#news-modal").show();
         $(".container").hide();
-        console.log("News click");
+        // console.log("News click");
     });
 
     $("#news-modal-close").click((e) => {
@@ -30,9 +30,12 @@ $(document).ready(function() {
 
 var todayNews = [];
 var currentIndex = 0;
+var newsToday = false;
 
 function cycleNews() {
-    $('#news-headline').text(todayNews[currentIndex]['headline']);
+    if (newsToday) {
+        $('#news-headline').text(todayNews[currentIndex]['headline']);
+    }
     currentIndex += 1;
     if (currentIndex >= todayNews.length) {
         currentIndex = 0;
@@ -69,10 +72,19 @@ function fillNewsBar(date) {
     if (isValidDate(date)) formattedDate = formatDate(date);
     else formattedDate = date;
 
+    if (!window.newsData[formattedDate]) {
+        $('#news-headline').text("No news today");
+        newsToday = false;
+        console.log("No news today");
+        return;
+    }
+
+    newsToday = true;
     todayNews = window.newsData[formattedDate];
+    currentIndex = 0;
+    $('#news-headline').text(todayNews[currentIndex]['headline']);
     console.log(todayNews);
     $('#news-headline').attr("class", "text");
-    cycleNews();
 }
 
 function populateNews() {
@@ -98,14 +110,15 @@ function populateNews() {
 
     $("[id^='newshead']").click(function() {
         var key = $(this).attr('id');
-        console.log(key);
+        // console.log(key);
         key = key.substring(9);
-        console.log(key);
+        // console.log(key);
     
         $("[id='newsdesc-" + key + "']").toggle();
     });
 
     fillNewsBar(new Date());
+    cycleNews();
 }
 
 // window.newsData = {
