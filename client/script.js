@@ -245,14 +245,14 @@ const generatePointInCountry = (country, infected, population) => {
     const bbox = path.getBBox();
     const area = bbox.width * bbox.height;
 
-    // infected = population; // max dots
+    infected = population; // max dots
 
     // make it look nice - scale by area, infected, and population
-    var numberDots = (Math.log(area)/400) * infected / Math.log(population);
+    var numberDots = (Math.log(area)/60) * infected / Math.log(population);
     // var numberDots = 30000; // stress test
-    if (numberDots > area/2)
+    if (numberDots > area/12)
     {
-      numberDots = Math.round(area/2);
+      numberDots = Math.round(area/12);
     }
 
     // console.log(area);
@@ -286,12 +286,16 @@ const generatePointInCountry = (country, infected, population) => {
       var len = poly.length;
       for (var j = 0; j < len; j++) {
         if (pointInPolygon([x, y], poly[j])) {
-          // console.log("inside");          
+          // console.log("inside");
+          var size = 1.2;
+
+          size = Math.max(1.2, Math.random() * Math.log(area) / 3);
+          
           g.append("circle")
                     .attr("style", "fill: #670B07;")
                     .attr("cx", x)
                     .attr("cy", y)
-                    .attr("r", 2);
+                    .attr("r", size);
           break;
         }
       }
