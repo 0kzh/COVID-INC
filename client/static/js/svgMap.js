@@ -2599,8 +2599,11 @@ svgMap.prototype.applyData = function (data) {
     value < min && (min = value);
   });
 
-  data.data[data.applyData].thresholdMax && (max = Math.min(max, data.data[data.applyData].thresholdMax));
-  data.data[data.applyData].thresholdMin && (min = Math.max(min, data.data[data.applyData].thresholdMin));
+  // data.data[data.applyData].thresholdMax && (max = Math.min(max, data.data[data.applyData].thresholdMax));
+  // data.data[data.applyData].thresholdMin && (min = Math.max(min, data.data[data.applyData].thresholdMin));
+
+  max = data.data[data.applyData].thresholdMax;
+  min = data.data[data.applyData].thresholdMin;
 
   // Loop through countries and set colors
   Object.keys(this.countries).forEach(function (countryID) {

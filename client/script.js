@@ -85,18 +85,50 @@ const redrawMap = (id) => {
           total_cases: {
             visible: true,
             name: 'Total Cases',
-            format: '{0} Total Cases',
+            format: '{0}',
             thousandSeparator: ',',
             thresholdMax: 100000,
-            thresholdMin: 1
+            thresholdMin: 0
+          },
+          new_cases: {
+            visible: true,
+            name: 'New Cases',
+            format: '{0}',
+            thousandSeparator: ',',
+            thresholdMax: 100000,
+            thresholdMin: 0
+          },
+          total_deaths: {
+            visible: true,
+            name: 'Total Deaths',
+            format: '{0}',
+            thousandSeparator: ',',
+            thresholdMax: 100000,
+            thresholdMax: 0
+          },
+          new_deaths: {
+            visible: true,
+            name: 'New Deaths',
+            format: '{0}',
+            thousandSeparator: ',',
+            thresholdMax: 100000,
+            thresholdMin: 0
+          },
+          recovered: {
+            visible: true,
+            name: 'Total Recovered',
+            format: '{0}',
+            thousandSeparator: ',',
+            thresholdMax: 100000,
+            thresholdMax: 0
           },
           log_total_cases: {
             visible: false,
             name: 'Log Total Cases',
             format: '{0} Total Cases',
             thousandSeparator: ',',
-            thresholdMax: 12,
-            thresholdMin: 1
+            thresholdMax: 100,
+            thresholdMin: 0
           }
         },
         applyData: 'log_total_cases',
@@ -123,25 +155,10 @@ const redrawMap = (id) => {
       maxZoom: 1,
       data: {
         data: {
-          gdp: {
-            name: 'GDP per capita',
-            format: '{0} USD',
-            thousandSeparator: ',',
-            thresholdMax: 50000,
-            thresholdMin: 1000
-          },
-          change: {
-            name: 'Change to year before',
-            format: '{0} %'
-          }
+          gdp: {}
         },
         applyData: 'gdp',
-        values: {
-          AF: {gdp: 587, change: 4.73},
-          AL: {gdp: 4583, change: 11.09},
-          DZ: {gdp: 4293, change: 10.01}
-          // ...
-        }
+        values: {}
       }
     });
   }
@@ -228,8 +245,10 @@ const generatePointInCountry = (country, infected, population) => {
     const bbox = path.getBBox();
     const area = bbox.width * bbox.height;
 
+    // infected = population; // max dots
+
     // make it look nice - scale by area, infected, and population
-    var numberDots = (Math.log(area)/30) * infected / Math.log(population);
+    var numberDots = (Math.log(area)/400) * infected / Math.log(population);
     // var numberDots = 30000; // stress test
     if (numberDots > area/2)
     {
@@ -267,12 +286,12 @@ const generatePointInCountry = (country, infected, population) => {
       var len = poly.length;
       for (var j = 0; j < len; j++) {
         if (pointInPolygon([x, y], poly[j])) {
-          // console.log("inside");
+          // console.log("inside");          
           g.append("circle")
                     .attr("style", "fill: #670B07;")
                     .attr("cx", x)
                     .attr("cy", y)
-                    .attr("r", 1.2);
+                    .attr("r", 2);
           break;
         }
       }
