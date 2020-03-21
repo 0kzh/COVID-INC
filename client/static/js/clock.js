@@ -1,21 +1,25 @@
-function clock() {
+function initClock() {
     var today = new Date();
     today = new Date(today.getTime() + today.getTimezoneOffset() * 60000); // convert to UTC/GMT for server processing
-    var year = today.getFullYear();
-    var month = zeros(today.getMonth() + 1); // get month returns 0-11
-    var date = zeros(today.getDate());
-    var hour = zeros(twelveHour(today.getHours()));
-    var minutes = zeros(today.getMinutes());
-    var seconds = zeros(today.getSeconds());
-    // console.log(today.toLocaleTimeString());
+    window.day = today;
+}
 
-    document.getElementById('year').innerHTML = year;
-    document.getElementById('month').innerHTML = month;
-    document.getElementById('date').innerHTML = date;
+function updateClock() {
+    const day = window.day;
+    
+    if (day instanceof Date) {
+        const year = day.getFullYear();
+        const month = zeros(day.getMonth() + 1); // get month returns 0-11
+        const date = zeros(day.getDate());
+        const hour = zeros(twelveHour(day.getHours()));
+        const minutes = zeros(day.getMinutes());
+        const seconds = zeros(day.getSeconds());
+        // console.log(today.toLocaleTimeString());
 
-    document.getElementById('hour').innerHTML = hour;
-    document.getElementById('min').innerHTML = minutes;
-    document.getElementById('sec').innerHTML = seconds;
+        document.getElementById('year').innerHTML = year;
+        document.getElementById('month').innerHTML = month;
+        document.getElementById('date').innerHTML = date;
+    }
 }
 
 function twelveHour(hour) {
@@ -35,10 +39,26 @@ function zeros(num) {
     return num;
 }
 
-function dateTime() {
-    clock();
-    setTimeout(dateTime, 500);
-}
+initClock();
+updateClock();
 
-dateTime();
+$("#last-day").click(() => {
+    if (window.day instanceof Date) {
+        window.day.setDate(window.day.getDate() - 1);
+        updateClock();
+    }
+});
+
+$("#today").click(() => {
+    initClock();
+    updateClock();
+});
+
+$("#next-day").click(() => {
+    if (window.day instanceof Date) {
+        window.day.setDate(window.day.getDate() + 1);
+        updateClock();
+    }
+});
+
 // END
