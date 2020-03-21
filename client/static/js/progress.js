@@ -20,7 +20,7 @@ function fill(flag, name, infected, dead, total) {
 
     healthy = total - dead - infected;
 
-    console.log(total + " " + dead + " " + infected + " " + healthy);
+    // console.log(total + " " + dead + " " + infected + " " + healthy);
 
     // totalNonHealthy = infected + dead;
 

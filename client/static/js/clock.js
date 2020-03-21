@@ -71,10 +71,6 @@ function updateClock() {
         const year = day.getFullYear();
         const month = zeros(day.getMonth() + 1); // get month returns 0-11
         const date = zeros(day.getDate());
-        const hour = zeros(twelveHour(day.getHours()));
-        const minutes = zeros(day.getMinutes());
-        const seconds = zeros(day.getSeconds());
-        // console.log(today.toLocaleTimeString());
 
         document.getElementById('year').innerHTML = year;
         document.getElementById('month').innerHTML = month;
@@ -182,7 +178,6 @@ const updateSlider = () => {
     const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
     const one_day = 1000 * 60 * 60 * 24 
     const diff = Math.round(day.getTime() - first.getTime()) / one_day;
-    console.log(diff);
     $("#slider").val(diff);
 }
 
@@ -204,7 +199,6 @@ $("#current-day").click((e) => {
 
 $("#slider").change((e) => {
     const numDays = $("#slider").val();
-    console.log(numDays);
     nDaysfromStart(numDays);
 })
 

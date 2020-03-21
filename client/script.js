@@ -25,31 +25,31 @@ const addPort = (country, type, offsetX, offsetY) => {
 }
 
 window.drawPorts = () => {
-  $("#ports").empty();
   if (window.portData) {
     portData = window.portData
-    Object.keys(portData).map((country) => {
-      const airports = portData[country]['airports']
-      const harbours = portData[country]['harbours']
+    $("#ports").empty();
+    // Object.keys(portData).map((country) => {
+    //   const airports = portData[country]['airports']
+    //   const harbours = portData[country]['harbours']
 
-      airports.forEach((airport) => {
-        const x = airport['offset_x'];
-        const y = airport['offset_y'];
-        const closed = airport['closed'];
-        const fileName = closed ? 'airport_closed' : 'airport';
+    //   airports.forEach((airport) => {
+    //     const x = airport['offset_x'];
+    //     const y = airport['offset_y'];
+    //     const closed = airport['closed'];
+    //     const fileName = closed ? 'airport_closed' : 'airport';
     
-        addPort(country, fileName, x, y);
-      })
+    //     addPort(country, fileName, x, y);
+    //   })
 
-      harbours.forEach((airport) => {
-        const x = airport['offset_x'];
-        const y = airport['offset_y'];
-        const closed = airport['closed'];
-        const fileName = closed ? 'harbour_closed' : 'harbour';
+    //   harbours.forEach((airport) => {
+    //     const x = airport['offset_x'];
+    //     const y = airport['offset_y'];
+    //     const closed = airport['closed'];
+    //     const fileName = closed ? 'harbour_closed' : 'harbour';
     
-        addPort(country, fileName, x, y);
-      })
-    })
+    //     addPort(country, fileName, x, y);
+    //   })
+    // })
   }
 }
 

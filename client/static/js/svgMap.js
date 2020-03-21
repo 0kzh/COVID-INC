@@ -607,6 +607,63 @@ var SvgPanZoom = function(svg, isClipPath, options) {
   this.init(svg, isClipPath, options);
 };
 
+
+const mobileTouchHandler = {
+    haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel']
+  , init: function(options) {
+      var instance = options.instance
+        , initialScale = 1
+        , pannedX = 0
+        , pannedY = 0
+
+      // Init Hammer
+      // Listen only for pointer and touch events
+      this.hammer = Hammer(options.svgElement, {
+        inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+      })
+
+      // Enable pinch
+      this.hammer.get('pinch').set({enable: true})
+
+      // Handle double tap
+      this.hammer.on('doubletap', function(ev){
+        instance.zoomIn()
+      })
+
+      // Handle pan
+      this.hammer.on('panstart panmove', function(ev){
+        // On pan start reset panned variables
+        if (ev.type === 'panstart') {
+          pannedX = 0
+          pannedY = 0
+        }
+
+        // Pan only the difference
+        instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY})
+        pannedX = ev.deltaX
+        pannedY = ev.deltaY
+      })
+
+      // Handle pinch
+      this.hammer.on('pinchstart pinchmove', function(ev){
+        // On pinch start remember initial zoom
+        if (ev.type === 'pinchstart') {
+          initialScale = instance.getZoom()
+          instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y})
+        }
+
+        instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y})
+      })
+
+      // Prevent moving the page on some devices when panning over SVG
+      options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+    }
+
+  , destroy: function(){
+      this.hammer.destroy()
+    }
+}
+
 var optionsDefaults = {
   isClipPath: true,
   viewportSelector: ".svg-pan-zoom_viewport", // Viewport selector. Can be querySelector string or SVGElement
@@ -627,7 +684,7 @@ var optionsDefaults = {
   onZoom: null,
   beforePan: null,
   onPan: null,
-  customEventsHandler: null,
+  customEventsHandler: mobileTouchHandler,
   eventsListenerElement: null,
   onUpdatedCTM: null
 };
@@ -2899,7 +2956,6 @@ svgMap.prototype.createMap = function () {
   this.createTooltip();
 
   // Create map wrappers
-  console.log(this.isClipPath)
   this.mapWrapper = this.createElement('div', 'svgMap-map-wrapper', this.wrapper);
   this.mapImage = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   this.mapImage.setAttribute('viewBox', '0 0 2000 1001');
@@ -3031,7 +3087,7 @@ svgMap.prototype.getTooltipContent = function (countryID) {
     Object.keys(this.options.data.data).forEach(function (key) {
       var item = this.options.data.data[key];
       var value = this.options.data.values[countryID][key];
-      if (item.visible) {
+      if (item.visible && value != "-1") {
         item.floatingNumbers && (value = value.toFixed(1));
         item.thousandSeparator && (value = this.numberWithCommas(value, item.thousandSeparator));
         value = item.format ? item.format.replace('{0}', '<span>' + value + '</span>') : '<span>' + value + '</span>';
