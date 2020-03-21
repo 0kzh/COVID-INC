@@ -65,15 +65,27 @@
         <div class="dash">-</div>
         <div class="time" id="date"></div>
       </div>
+      <div class="range-slider">
+        <input class="range" type="range" value="250" min="0" max="500" step="50">
+      </div>
       <div class="date-nav">
-        <div id="last-day">
-          <i class="fas fa-chevron-left"></i>
+        <div class="control" id="first-day">
+          <i class="fas fa-fast-backward"></i>
         </div>
-        <div id="today">
-          <span>Go to Today</span>
+        <div class="control" id="last-day">
+          <i class="fas fa-step-backward"></i>
         </div>
-        <div id="next-day">
-          <i class="fas fa-chevron-right"></i>
+        <div class="control" id="play">
+          <i class="fas fa-lg fa-play"></i>
+        </div>
+        <div class="control" id="pause">
+          <i class="fas fa-lg fa-pause"></i>
+        </div>
+        <div class="control" id="next-day">
+          <i class="fas fa-step-forward"></i>
+        </div>
+        <div class="control" id="last-day">
+          <i class="fas fa-fast-forward"></i>
         </div>
       </div>
     </div>
