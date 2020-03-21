@@ -26,15 +26,6 @@ $(document).ready(function() {
         $("#news-modal").hide();
         $(".container").show();
     }
-
-    $("[id^='newshead']").click(function() {
-        var key = $(this).attr('id');
-        console.log(key);
-        key = key.substring(9);
-        console.log(key);
-    
-        $("[id='newsdesc-" + key + "']").toggle();
-    });
 });
 
 var todayNews = [];
@@ -97,7 +88,7 @@ function populateNews() {
         var curr = 0;
         window.newsData[key].forEach((news_val) => {
             var newsTableHeadline = "<tr class='newshead' id='newshead-" + key + "-" + curr + "'><td>" + news_val["headline"] + "</td></tr>";
-            var newsTableDescription = "<tr class='newsdesc' id='newsdesc-" + key + "-" + curr + "'><td>" + news_val["description"] + "</td></tr>";
+            var newsTableDescription = "<tr class='newsdesc' id='newsdesc-" + key + "-" + curr + "'><td>" + news_val["text"] + "</td></tr>";
 
             $("#news-headlines").append(newsTableHeadline, newsTableDescription);
 
@@ -105,9 +96,14 @@ function populateNews() {
         });
     });
 
-    // Object.keys(window.data).forEach((key) => {
-    //     generatePointInCountry(key, window.data[key]['total_cases'], window.data[key]['population'])
-    //   });
+    $("[id^='newshead']").click(function() {
+        var key = $(this).attr('id');
+        console.log(key);
+        key = key.substring(9);
+        console.log(key);
+    
+        $("[id='newsdesc-" + key + "']").toggle();
+    });
 
     fillNewsBar(new Date());
 }
