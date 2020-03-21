@@ -5,7 +5,7 @@ function initClock() {
 }
 
 // checks if the set date is current day
-function isPresentDay() {
+const isPresentDay = () => {
     var today = new Date();
     today = new Date(today.getTime() + today.getTimezoneOffset() * 60000);
     today = today.setHours(0,0,0,0); // remove time
@@ -15,11 +15,27 @@ function isPresentDay() {
     return setDate == today;
 }
 
-function checkDisableNextDay() {
+const isAtStart = () => {
+    var startDate = new Date(Date.UTC(2020, 0, 29, 23, 55, 55));
+    var setDate = window.day;
+    setDate = setDate.setHours(0,0,0,0); // remove time
+    return setDate <= startDate;
+}
+
+const checkDisableNextDay = () => {
     if (isPresentDay()) {
         $("#next-day").addClass("disabled");
     } else {
         $("#next-day").removeClass("disabled");
+    }
+}
+
+// we don't have data for jan 29
+const checkDisablePrevDay = () => {
+    if (isAtStart()) {
+        $("#last-day").addClass("disabled");
+    } else {
+        $("#last-day").removeClass("disabled");
     }
 }
 
@@ -41,6 +57,7 @@ function updateClock() {
     }
 
     checkDisableNextDay();
+    checkDisablePrevDay();
 }
 
 function twelveHour(hour) {
