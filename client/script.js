@@ -375,6 +375,9 @@ const getInfectedCount = (date, selectedCountry) => {
     }
   }
   return infected;
+  
+  // Uncomment to not use active cases
+  // return window.data[date][selectedCountry]['total_cases'];
 }
 
 var selectedCountry = 'WR';
