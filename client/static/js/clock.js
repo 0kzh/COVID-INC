@@ -108,7 +108,7 @@ updateClock();
 const firstDay = () => {
     const disabled = $("#first-day").hasClass("disabled");
     if (!disabled && window.day instanceof Date) {
-        const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
+        const first = new Date(Date.UTC(2020, 0, 29, 23, 59, 59));
         window.day = first;
         updateClock();
         if (!window.keyPressed) {

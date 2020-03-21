@@ -79,9 +79,17 @@ const redrawMap = (id) => {
             thresholdMax: 100000,
             thresholdMin: 0
           },
+          active: {
+            visible: true,
+            name: 'Total Infected',
+            format: '{0}',
+            thousandSeparator: ',',
+            thresholdMax: 100000,
+            thresholdMin: 0
+          },
           new_cases: {
             visible: true,
-            name: 'New Cases',
+            name: 'New Infected',
             format: '{0}',
             thousandSeparator: ',',
             thresholdMax: 100000,
@@ -126,17 +134,26 @@ const redrawMap = (id) => {
     });
 
     if (todayData && needUpdate) {
+      // Generate points
       $("#points").empty();
       Object.keys(data).forEach((key) => {
-        generatePoints(key, data[key]['total_cases'], data[key]['population']);
+        generatePoints(key, getInfectedCount(date, key), data[key]['population']);
         needUpdate = false;
       });
     }
 
-    if (data) {
-      // generate points
-      Object.keys(data).forEach((key) => {
-        updatePoints(key, data[key]['total_cases'], data[key]['population']);
+    if (data && todayData) {
+      // Update points
+      // Iterate through todayData to get all countries that have had data
+      Object.keys(todayData).forEach((key) => {
+        // If country no longer has any data - zero infections
+        if (!data[key]) {
+          updatePoints(key, 0, todayData[key]['population']);
+        }
+        // Otherwise, country still has data, access from current date's data
+        else {
+          updatePoints(key, getInfectedCount(date, key), data[key]['population']);
+        }
       });
     }
     
@@ -317,7 +334,7 @@ const generatePoints = (country, infected, population) => {
 
 const updatePoints = (country, infected, population) => {
   const max = formatDate(getCurrentDate());
-  const maxData = window.data ? window.data[max] : {}
+  const maxData = window.data ? window.data[max] : {};
   const parent = $(`g[country="${country}"]`)
   const children = parent.children();
   children.each((i, child) => {
@@ -329,7 +346,7 @@ const updatePoints = (country, infected, population) => {
 
     // get ratio of cases of day of interest to present/max cases
     const ratio = 1 - (infected / maxCases);
-    console.log(ratio)
+    // console.log(ratio)
 
     const numPoints = children.length;
     const hideCount = Math.floor(ratio * numPoints);
@@ -345,6 +362,21 @@ const updatePoints = (country, infected, population) => {
   }
 }
 
+const getInfectedCount = (date, selectedCountry) => {
+  // Set to active - number of infections
+  var infected = window.data[date][selectedCountry]['active'];
+  if (infected == -1) {
+    // If active doesn't exist, set to total cases
+    infected = window.data[date][selectedCountry]['total_cases'];
+    // If recovered exists, subtract from total cases
+    recovered = window.data[date][selectedCountry]['recovered'];
+    if (recovered != -1) {
+      infected -= recovered;
+    }
+  }
+  return infected;
+}
+
 var selectedCountry = 'WR';
 const updateSelectedCountry = (date) => {
   if (selectedCountry == 'WR'){
@@ -357,7 +389,7 @@ const updateSelectedCountry = (date) => {
   const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${selectedCountry.toLowerCase()}.svg`;
   let infected, dead, population;
   if (window.data[date][selectedCountry]) {
-    infected = window.data[date][selectedCountry]['total_cases'];
+    infected = getInfectedCount(date, selectedCountry);
     dead = window.data[date][selectedCountry]['total_deaths'];
     population = window.data[date][selectedCountry]['population'];
   } else {
@@ -370,7 +402,7 @@ const updateSelectedCountry = (date) => {
 
 const updateWorldData = (date) => {
   // populate world data
-  window.world_infected = data[date]['WR']['total_cases'];
+  window.world_infected = getInfectedCount(date, 'WR');
   window.world_dead = data[date]['WR']['total_deaths'];
   window.world_population = 7771104755;
 }
@@ -427,25 +459,12 @@ const attachHandlers = () => {
   $('path[id^="svgMap-map-country"]').on("click touchstart", (e) => {
     e.stopPropagation();
     const country = e.target.getAttribute("data-id");
-    const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${country.toLowerCase()}.svg`
-    const name = window.map.countries[country];
 
     const date = formatDate(window.day);
 
-    var infected, dead, population;
-    if (window.data[date][country]) {
-      infected = window.data[date][country]['total_cases']
-      dead = window.data[date][country]['total_deaths']
-      population = window.data[date][country]['population']
-    } else {
-      infected = 'No data'
-      dead = 'No data'
-      population = '0'
-    }
-
-    fill(flag, name, infected, dead, population);
-
     selectedCountry = country;
+
+    updateSelectedCountry(date);
   });
 
   $('.svgMap-map-wrapper').on("click touchstart", (e) => {
