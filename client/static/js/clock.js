@@ -16,7 +16,10 @@ const isPresentDay = () => {
 }
 
 const isAtStart = () => {
-    var startDate = new Date(Date.UTC(2020, 0, 29, 23, 55, 55));
+    var startDate = new Date(Date.UTC(2020, 0, 29, 23, 59, 59));
+    startDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
+    startDate = startDate.setHours(0,0,0,0);
+
     var setDate = window.day;
     setDate = setDate.setHours(0,0,0,0); // remove time
     return setDate <= startDate;
@@ -25,17 +28,21 @@ const isAtStart = () => {
 const checkDisableNextDay = () => {
     if (isPresentDay()) {
         $("#next-day").addClass("disabled");
+        $("#current-day").addClass("disabled");
     } else {
         $("#next-day").removeClass("disabled");
+        $("#current-day").removeClass("disabled");
     }
 }
 
 // we don't have data for jan 29
 const checkDisablePrevDay = () => {
     if (isAtStart()) {
-        $("#last-day").addClass("disabled");
+        $("#prev-day").addClass("disabled");
+        $("#first-day").addClass("disabled");
     } else {
-        $("#last-day").removeClass("disabled");
+        $("#prev-day").removeClass("disabled");
+        $("#first-day").removeClass("disabled");
     }
 }
 
@@ -80,19 +87,20 @@ function zeros(num) {
 initClock();
 updateClock();
 
-$("#last-day").click((e) => {
+$("#first-day").click((e) => {
     const disabled = e.currentTarget.classList.contains("disabled");
     if (!disabled && window.day instanceof Date) {
-        window.day.setDate(window.day.getDate() - 1);
+        const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
+        window.day = first;
         updateClock();
         update();
     }
 });
 
-$("#today").click((e) => {
+$("#prev-day").click((e) => {
     const disabled = e.currentTarget.classList.contains("disabled");
-    if (!disabled) {
-        initClock();
+    if (!disabled && window.day instanceof Date) {
+        window.day.setDate(window.day.getDate() - 1);
         updateClock();
         update();
     }
@@ -102,6 +110,15 @@ $("#next-day").click((e) => {
     const disabled = e.currentTarget.classList.contains("disabled");
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
+        updateClock();
+        update();
+    }
+});
+
+$("#current-day").click((e) => {
+    const disabled = e.currentTarget.classList.contains("disabled");
+    if (!disabled) {
+        initClock();
         updateClock();
         update();
     }

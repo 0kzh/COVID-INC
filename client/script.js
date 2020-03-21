@@ -301,8 +301,10 @@ const generatePointInCountry = (country, infected, population) => {
             colour = "#862B15"
           }
           
+          var opacity = Math.floor(Math.random() * (1 - 0.7) ) + 0.7;
+          
           g.append("circle")
-                    .attr("style", "fill: " + colour + ";")
+                    .attr("style", `fill: ${colour}; fill-opacity: ${opacity};`)
                     .attr("cx", x)
                     .attr("cy", y)
                     .attr("r", size);
@@ -355,6 +357,7 @@ const update = () => {
     updateWorldData(date);
     updateSelectedCountry(date);
     fillNewsBar(date);
+    setNewsToCurrDate();
   }
 }
 

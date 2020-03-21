@@ -32,6 +32,8 @@ var todayNews = [];
 var currentIndex = 0;
 var newsToday = false;
 
+var today;
+
 function cycleNews() {
     if (newsToday) {
         $('#news-headline').text(todayNews[currentIndex]['headline']);
@@ -94,7 +96,7 @@ function populateNews() {
     }
 
     Object.keys(window.newsData).sort().reverse().forEach((key) => {
-        var dateTableHeader = "<tr><th>" + key + "</th></tr>";
+        var dateTableHeader = "<tr id='newsdate-" + key + "'><th>" + key + "</th></tr>";
         $("#news-headlines").append(dateTableHeader);
 
         var curr = 0;
@@ -117,8 +119,32 @@ function populateNews() {
         $("[id='newsdesc-" + key + "']").toggle();
     });
 
-    fillNewsBar(new Date());
+    today = new Date();
+    fillNewsBar(today);
     cycleNews();
+}
+
+function datediff(d1, d2) {
+    return Math.floor((d2 - d1) / 86400000); 
+}
+
+function setNewsToCurrDate() {
+
+    var diff = datediff(window.day, today);
+    console.log(diff);
+
+    var hide_date = new Date(window.day);
+
+    $("[id^='newsdate']").show();
+    $("[id^='newshead']").show();
+    // $("[id^='newsdesc']").show();
+
+    for (var i = 0; i < diff; i += 1) {
+        hide_date.setDate(hide_date.getDate() + 1);
+        var hide_date_formatted = formatDate(hide_date);
+        $(`[id*='${hide_date_formatted}']`).hide();
+    }
+
 }
 
 // window.newsData = {
