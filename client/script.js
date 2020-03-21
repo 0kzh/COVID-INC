@@ -245,7 +245,7 @@ const generatePointInCountry = (country, infected, population) => {
     const bbox = path.getBBox();
     const area = bbox.width * bbox.height;
 
-    infected = population; // max dots
+    // infected = population; // max dots
 
     // make it look nice - scale by area, infected, and population
     var numberDots = (Math.log(area)/60) * infected / Math.log(population);
@@ -290,9 +290,10 @@ const generatePointInCountry = (country, infected, population) => {
           var size = 1.2;
 
           size = Math.max(1.2, Math.random() * Math.log(area) / 3);
+          opacity = Math.floor(Math.random() * (1 - 0.7) ) + 0.7;
           
           g.append("circle")
-                    .attr("style", "fill: #670B07;")
+                    .attr("style", `fill: #670B07; fill-opacity: ${opacity};`)
                     .attr("cx", x)
                     .attr("cy", y)
                     .attr("r", size);
