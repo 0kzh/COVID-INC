@@ -1829,6 +1829,9 @@ module.exports = {
     if (els.length > 0) {
       $("#transform-wrapper").css({transform: s})
     }
+    // $("#oceanBg").css({backgroundPosition: `${matrix.e}px ${matrix.f}px`})
+    //              .css({backgroundSize: `${matrix.a * 100}% ${matrix.d * 100}%`})
+
 
     window.transformPoints();
     window.drawPorts();

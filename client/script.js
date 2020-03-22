@@ -74,7 +74,7 @@ const redrawMap = (id) => {
       isClipPath: false,
       targetElementID: 'svgMap',
       initialZoom: 1,
-      minZoom: 0.5,
+      minZoom: 0.85,
       maxZoom: 10,
       data: {
         data: {
@@ -178,7 +178,7 @@ const redrawMap = (id) => {
       isClipPath: true,
       targetElementID: 'svgBg',
       initialZoom: 1,
-      minZoom: 1,
+      minZoom: 0.85,
       maxZoom: 10,
       data: {
         data: {
