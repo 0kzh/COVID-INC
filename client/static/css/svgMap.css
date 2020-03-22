@@ -149,15 +149,15 @@ body {
 
 .svgMap-map-wrapper .svgMap-control-button {
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   position: relative;
 }
 
 .svgMap-fs-button {
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   position: absolute;
   background: white;
   bottom: 10px;
