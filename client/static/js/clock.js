@@ -120,22 +120,35 @@ const prevDay = () => {
         window.day.setDate(window.day.getDate() - 1);
         updateClock();
         if (!window.keyPressed) {
-            update();
+            try {
+                update(); // update may fail if data isn't present
+            } catch (err) {
+                return false;
+            }
         }
     }
     updateSlider();
+    return true;
 }
 
 const nextDay = () => {
     const disabled = $("#next-day").hasClass("disabled");
+    const start = window.day.getDate();
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
         updateClock();
         if (!window.keyPressed) {
-            update();
+            try {
+                update();
+            } catch (err) {
+                return false;
+            }
         }
     }
     updateSlider();
+    console.log("start: " + start);
+    console.log("end: " + window.day.getDate())
+    return true;
 }
 
 const currentDay = () => {
@@ -144,10 +157,15 @@ const currentDay = () => {
         initClock();
         updateClock();
         if (!window.keyPressed) {
-            update();
+            try {
+                update();
+            } catch (err) {
+                return false;
+            }
         }
     }
     updateSlider();
+    return true;
 }
 
 const nDaysfromStart = (days) => {
@@ -158,9 +176,14 @@ const nDaysfromStart = (days) => {
     window.day = target;
     updateClock();
     if (!window.keyPressed) {
-        update();
+        try {
+            update();
+        } catch (err) {
+            return false;
+        }
     }
     updateSlider();
+    return true;
 }
 
 const initSlider = () => {
@@ -192,6 +215,25 @@ $("#first-day").click((e) => {
 
 $("#prev-day").click((e) => {
     prevDay();
+});
+
+$("#play").click((e) => {
+    window.timer = setInterval(() => {
+        if (!isPresentDay()) {
+            const success = nextDay();
+            if (!success) {
+                clearInterval(window.timer);
+            }
+        } else {
+            clearInterval(window.timer);
+        }
+    }, 500);
+});
+
+$("#pause").click((e) => {
+    if (window.timer) {
+        clearInterval(window.timer);
+    }
 });
 
 $("#next-day").click((e) => {
