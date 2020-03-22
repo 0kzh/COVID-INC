@@ -10,9 +10,9 @@ const checkOrientation = () => {
     } else {
         $("#rotate-container").show();
         // go fullscreen if mobile
-        if (isMobile()) {
-            document.getElementById('device-orientation').requestFullscreen()
-        }
+    }
+    if (isMobile()) {
+        document.getElementById('device-orientation').requestFullscreen()
     }
 }
 
