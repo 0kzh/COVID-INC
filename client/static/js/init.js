@@ -12,7 +12,8 @@ const checkOrientation = () => {
         // go fullscreen if mobile
     }
     if (isMobile()) {
-        document.getElementById('device-orientation').requestFullscreen()
+        document.documentElement.requestFullscreen(); 
+        console.log("fullscrene requested")
     }
 }
 

@@ -58,11 +58,18 @@ const redrawMap = (id) => {
     $(".svgMap-tooltip").remove();
     $("#svgMap .svgMap-map-wrapper").remove();
 
-    const date = formatDate(window.day);
-    const today = formatDate(getCurrentDate());
-    const todayData = window.data ? window.data[today] : {}
-    const data = window.data ? window.data[date] : {}
+    var date = formatDate(window.day);
+    // if there no data for date, get latest data
+    while (!window.data[date]) {
+      prevDay();
+      $("#svgMap .svgMap-map-wrapper").remove();
+      date = formatDate(window.day);
+    }
 
+    const first = Object.keys(window.data)[0]
+    const todayData = window.data ? window.data[first] : {}
+    const data = window.data ? window.data[date] : {};
+    
     window.map = new svgMap({
       isClipPath: false,
       targetElementID: 'svgMap',
@@ -333,7 +340,7 @@ const generatePoints = (country, infected, population) => {
 };
 
 const updatePoints = (country, infected, population) => {
-  const max = formatDate(getCurrentDate());
+  const max = Object.keys(window.data)[0];
   const maxData = window.data ? window.data[max] : {};
   const parent = $(`g[country="${country}"]`)
   const children = parent.children();
