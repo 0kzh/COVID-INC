@@ -74,7 +74,7 @@ const redrawMap = (id) => {
       isClipPath: false,
       targetElementID: 'svgMap',
       initialZoom: 1,
-      minZoom: 1,
+      minZoom: 0.5,
       maxZoom: 10,
       data: {
         data: {
@@ -163,6 +163,12 @@ const redrawMap = (id) => {
         }
       });
     }
+
+    // fullscreen after everything loaded (doesn't work before for some reason)
+    // if (window.fullscreenPending) {
+    //   document.documentElement.requestFullscreen(); 
+    //   window.fullscreenPending = false;
+    // }
     
   } else if (id == "svgBg") {
     // clearLayers();

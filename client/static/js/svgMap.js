@@ -2965,6 +2965,7 @@ svgMap.prototype.createMap = function () {
   // Add controls
   var mapControlsWrapper = this.createElement('div', 'svgMap-map-controls-wrapper', this.mapWrapper);
   var zoomContainer = this.createElement('div', 'svgMap-map-controls-zoom', mapControlsWrapper);
+  // var fsContainer = this.createElement('div', 'svgMap-map-controls-fullscreen', mapControlsWrapper);
   ['in', 'out'].forEach(function (item) {
     var zoomControlName = 'zoomControl' + item.charAt(0).toUpperCase() + item.slice(1);
     this[zoomControlName] = this.createElement('div', 'svgMap-control-button svgMap-zoom-button svgMap-zoom-' + item + '-button', zoomContainer);
@@ -2972,6 +2973,26 @@ svgMap.prototype.createMap = function () {
       this.zoomMap(item);
     }.bind(this));
   }.bind(this));
+
+  const fsButton = document.createElement('div');
+  fsButton.setAttribute('class', 'svgMap-fs-button')
+  
+  const icon = document.createElement('i');
+  if (screenfull.isFullscreen) {
+    icon.setAttribute('class', 'fas fa-compress');
+  } else {
+    icon.setAttribute('class', 'fas fa-expand');
+  }
+  icon.setAttribute('id', 'fs-icon');
+
+  fsButton.appendChild(icon);
+
+  fsButton.addEventListener('click', function (e) {
+    const elem = e.target;
+
+    this.toggleFullscreen();
+  }.bind(this));
+  this.mapWrapper.appendChild(fsButton);
 
   // Add map elements
   Object.keys(this.mapPaths).forEach(function (countryID) {
@@ -3003,19 +3024,21 @@ svgMap.prototype.createMap = function () {
     });*/
 
     // Tooltip events
-    countryElement.addEventListener('mouseenter', function (e) {
-      var countryID = countryElement.getAttribute('data-id');
-      this.setTooltipContent(this.getTooltipContent(countryID));
-      this.showTooltip(e);
-    }.bind(this));
+    if (!isMobile()) {
+      countryElement.addEventListener('mouseenter', function (e) {
+        var countryID = countryElement.getAttribute('data-id');
+        this.setTooltipContent(this.getTooltipContent(countryID));
+        this.showTooltip(e);
+      }.bind(this));
 
-    countryElement.addEventListener('mousemove', function (e) {
-      this.moveTooltip(e);
-    }.bind(this));
+      countryElement.addEventListener('mousemove', function (e) {
+        this.moveTooltip(e);
+      }.bind(this));
 
-    countryElement.addEventListener('mouseleave', function () {
-      this.hideTooltip();
-    }.bind(this));
+      countryElement.addEventListener('mouseleave', function () {
+        this.hideTooltip();
+      }.bind(this));
+    }
 
   }.bind(this));
 
@@ -3120,7 +3143,14 @@ svgMap.prototype.zoomMap = function (direction) {
     return false;
   }
   this.mapPanZoom[direction == 'in' ? 'zoomIn' : 'zoomOut']();
-};
+}
+
+svgMap.prototype.toggleFullscreen = function () {
+  if (screenfull.isEnabled) {
+    screenfull.toggle();
+  }
+}
+
 svgMap.prototype.mapPaths = {
   "AF": {
     "d": "M1369.9,333.8h-5.4l-3.8-0.5l-2.5,2.9l-2.1,0.7l-1.5,1.3l-2.6-2.1 l-1-5.4l-1.6-0.3v-2l-3.2-1.5l-1.7,2.3l0.2,2.6l-0.6,0.9l-3.2-0.1l-0.9,3l-2.1-1.3l-3.3,2.1l-1.8-0.8l-4.3-1.4h-2.9l-1.6-0.2 l-2.9-1.7l-0.3,2.3l-4.1,1.2l0.1,5.2l-2.5,2l-4,0.9l-0.4,3l-3.9,0.8l-5.9-2.4l-0.5,8l-0.5,4.7l2.5,0.9l-1.6,3.5l2.7,5.1l1.1,4 l4.3,1.1l1.1,4l-3.9,5.8l9.6,3.2l5.3-0.9l3.3,0.8l0.9-1.4l3.8,0.5l6.6-2.6l-0.8-5.4l2.3-3.6h4l0.2-1.7l4-0.9l2.1,0.6l1.7-1.8 l-1.1-3.8l1.5-3.8l3-1.6l-3-4.2l5.1,0.2l0.9-2.3l-0.8-2.5l2-2.7l-1.4-3.2l-1.9-2.8l2.4-2.8l5.3-1.3l5.8-0.8l2.4-1.2l2.8-0.7 L1369.9,333.8L1369.9,333.8z"

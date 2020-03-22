@@ -4,10 +4,10 @@ const isMobile = function() {
     return check;
 };
 
+// go fullscreen if mobile
 if (isMobile()) {
     if (confirm('Do you want to enter fullscreen for a better experience?')) {
-        document.documentElement.requestFullscreen(); 
-        console.log("fullscrene requested")
+        window.fullscreenPending = true;
     }
 }
   
@@ -16,7 +16,6 @@ const checkOrientation = () => {
         $("#rotate-container").hide();
     } else {
         $("#rotate-container").show();
-        // go fullscreen if mobile
     }
 }
 
