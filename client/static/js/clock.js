@@ -209,6 +209,13 @@ const toggleControls = () => {
     $("#expand-icon").toggleClass("flipped");
 }
 
+const reset = () => {
+    clearInterval(window.timer);
+    window.timer = null;
+    $("#play-button").addClass("fa-play");
+    $("#play-button").removeClass("fa-pause");
+}
+
 $("#first-day").click((e) => {
     firstDay();
 });
@@ -218,22 +225,22 @@ $("#prev-day").click((e) => {
 });
 
 $("#play").click((e) => {
-    window.timer = setInterval(() => {
-        if (!isPresentDay()) {
-            const success = nextDay();
-            if (!success) {
-                clearInterval(window.timer);
+    if (!window.timer) {
+        $("#play-button").removeClass("fa-play");
+        $("#play-button").addClass("fa-pause");
+        window.timer = setInterval(() => {
+            if (!isPresentDay()) {
+                const success = nextDay();
+                if (!success) {
+                    reset();
+                }
+            } else {
+                reset();
             }
-        } else {
-            clearInterval(window.timer);
-        }
-    }, 500);
-});
-
-$("#pause").click((e) => {
-    if (window.timer) {
-        clearInterval(window.timer);
-    }
+        }, 500);
+    } else {
+        reset();
+    }    
 });
 
 $("#next-day").click((e) => {
