@@ -493,7 +493,7 @@ const clearHandlers = () => {
 }
 
 const attachHandlers = () => {
-  $('path[id^="svgMap-map-country"]').on("click touchstart", (e) => {
+  $('path[id^="svgMap-map-country"]').on("click", (e) => {
     e.stopPropagation();
     const country = e.target.getAttribute("data-id");
 
@@ -504,7 +504,7 @@ const attachHandlers = () => {
     updateSelectedCountry(date);
   });
 
-  $('.svgMap-map-wrapper').on("click touchstart", (e) => {
+  $('.svgMap-map-wrapper').on("click", (e) => {
     fill(icon, "World", window.world_infected, window.world_dead, window.world_population);
   });
 }

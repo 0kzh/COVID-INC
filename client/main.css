@@ -549,10 +549,9 @@ body {
   transform: rotate(180deg);
 }
 
-#expand-icon {
-  /* transition: transform 0.5s; */
+#expand-icon{
+  margin: 2px auto;
 }
-
 
 /* #today span {
   border-radius: 1em;
