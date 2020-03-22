@@ -545,6 +545,14 @@ body {
   width: 100%;
 }
 
+.flipped {
+  transform: rotate(180deg);
+}
+
+#expand-icon {
+  /* transition: transform 0.5s; */
+}
+
 
 /* #today span {
   border-radius: 1em;

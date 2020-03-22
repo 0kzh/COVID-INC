@@ -181,6 +181,11 @@ const updateSlider = () => {
     $("#slider").val(diff);
 }
 
+const toggleControls = () => {
+    $(".nav-container").animate({height: "toggle", width: "toggle"}, 500);
+    $("#expand-icon").toggleClass("flipped");
+}
+
 $("#first-day").click((e) => {
     firstDay();
 });
@@ -200,6 +205,10 @@ $("#current-day").click((e) => {
 $("#slider").change((e) => {
     const numDays = $("#slider").val();
     nDaysfromStart(numDays);
+})
+
+$(".card-accordion").click((e) => {
+    toggleControls();
 })
 
 // END
