@@ -28,6 +28,43 @@
 
   </div>
 
+  <!-- The Modal -->
+  <div id="credits-modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="credits-modal-close" class="close">&times;</div>
+        About
+      </div>
+      <div class="modal-body">
+        <div class="credits-modal-body"> 
+          COVID-INC was created by: <br>
+          &nbsp; Kelvin Zhang and<br>
+          &nbsp; William Qin<br>
+          <br>
+          Data Sources:<br>
+          &nbsp; Coronavirus data - 
+          <a href="https://www.worldometers.info/coronavirus/">
+            https://www.worldometers.info/coronavirus/
+          </a><br>
+          &nbsp; News headlines - 
+          <a href="https://www.pharmaceutical-technology.com/news/coronavirus-timeline/">
+            https://www.pharmaceutical-technology.com/news/coronavirus-timeline/
+          </a><br>
+          <br>
+          Built with:<br>
+          &nbsp; SVG Map -
+          <a href="https://github.com/StephanWagner/svgMap">
+            https://github.com/StephanWagner/svgMap
+          </a><br>
+          &nbsp; PostgreSQL, AWS, Python, and JavaScript<br>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <div id="rotate-container">
     <div id="rotate-message">
       <div class="phone">
@@ -82,9 +119,7 @@
     <div class="card card-news-scroll news-button">
       <div class="marquee">
         <div id="news-headline">
-          The U.S. Pres. tests negative, White House says
-          <!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          Italy had 3 confirmed cases 3 weeks ago and now has north of 20,000 -->
+          No news today
         </div>
       </div>
     </div>
@@ -126,10 +161,9 @@
       </div>
     
 
-      <!-- <div class="card card-world">
-        WORLD
-        <div class="blue-bar"></div>
-      </div> -->
+      <div class="card card-credits">
+        <i class="fas fa-info-circle"></i>
+      </div>
     </div>
 
     <div id="ports"></div>
@@ -160,8 +194,7 @@
 <script src="static/js/bindings.js"></script>
 <script src="static/js/progress.js"></script>
 <script src="static/js/news.js"></script>
-<script src="static/js/disease.js"></script>
-<script src="static/js/world.js"></script>
+<script src="static/js/credits.js"></script>
 <script src="script.js"></script>
 <script src="https://kit.fontawesome.com/642a076878.js" crossorigin="anonymous"></script>
 

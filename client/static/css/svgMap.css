@@ -124,8 +124,9 @@ body {
 
 .svgMap-map-wrapper .svgMap-map-controls-wrapper {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 1vh;
+  left: 1vh;
+
   z-index: 1;
   display: flex;
   overflow: hidden;
@@ -149,19 +150,21 @@ body {
 
 .svgMap-map-wrapper .svgMap-control-button {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 8vh;
+  height: 8vh;
   position: relative;
 }
 
 .svgMap-fs-button {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 8vh;
+  height: 8vh;
+  font-size: 4vh;
+  bottom: 1vh;
+  right: 1vh;
+
   position: absolute;
   background: white;
-  bottom: 10px;
-  right: 10px;
   z-index: 1;
   overflow: hidden;
   padding: 5px;
@@ -170,6 +173,44 @@ body {
   justify-content: center;
   border-radius: 2px;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:before {
+  width: 3vh;
+  height: 0.4vh;
+}
+.svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-in-button:after {
+  width: 0.5vh;
+  height: 3vh;
+}
+
+@media only screen and (max-width: 1024px) {
+  .svgMap-map-wrapper .svgMap-map-controls-wrapper {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .svgMap-map-wrapper .svgMap-control-button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .svgMap-fs-button {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:before {
+    width: 11px;
+    height: 3px;
+  }
+  .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-in-button:after {
+    width: 3px;
+    height: 11px;
+  }
 }
 
 .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:before, .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:after {
@@ -182,22 +223,12 @@ body {
   transition: background-color .2s;
 }
 
-.svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:before {
-  width: 11px;
-  height: 3px;
-}
-
 .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:hover:before, .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:hover:after {
   background: #111;
 }
 
 .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button.svgMap-disabled:before, .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button.svgMap-disabled:after {
   background: #ccc;
-}
-
-.svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-in-button:after {
-  width: 3px;
-  height: 11px;
 }
 
 .svgMap-map-wrapper .svgMap-country {

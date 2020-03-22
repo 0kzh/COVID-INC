@@ -98,6 +98,7 @@ function zeros(num) {
     return num;
 }
 
+console.log("Initializing clock...");
 initClock();
 updateClock();
 
@@ -146,8 +147,8 @@ const nextDay = () => {
         }
     }
     updateSlider();
-    console.log("start: " + start);
-    console.log("end: " + window.day.getDate())
+    // console.log("start: " + start);
+    // console.log("end: " + window.day.getDate())
     return true;
 }
 

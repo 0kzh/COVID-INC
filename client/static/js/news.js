@@ -5,21 +5,22 @@ $(document).ready(function() {
     $(".news-button").click((e) => {
         // $('#news-modal').css("transform","translate(0,0)");
         $("#news-modal").show();
+        $("#credits-modal").hide();
         // $(".container").hide();
         // console.log("News click");
     });
 
     $("#news-modal-close").click((e) => {
-        closeModal();
+        closeNewsModal();
     });
     
     window.onclick = function(event) {
         if (event.target == modal) {
-        closeModal();
+        closeNewsModal();
         }
     }
 
-    function closeModal() {
+    function closeNewsModal() {
         // $('#news-modal').css("transform","translate(0,-100px)");
         // $("#news-modal").fadeOut(400);
         $("#news-modal").hide();
@@ -29,12 +30,12 @@ $(document).ready(function() {
 
 var todayNews = [];
 var currentIndex = 0;
-var newsToday = false;
+var newsExists = false;
 
-var today;
+var newsLoaded = false;
 
 function cycleNews() {
-    if (newsToday) {
+    if (newsExists) {
         $('#news-headline').text(todayNews[currentIndex]['headline']);
     }
     currentIndex += 1;
@@ -43,7 +44,7 @@ function cycleNews() {
     }
     setTimeout(function () {
         cycleNews();
-    }, 15000);
+    }, 10000);
 }
 
 function isValidDate(date) {
@@ -61,24 +62,30 @@ function fillNewsBar(date) {
 
     if (!window.newsData[formattedDate]) {
         $('#news-headline').text("No news today");
-        newsToday = false;
+        newsExists = false;
         console.log("No news today");
         return;
     }
 
-    newsToday = true;
+    newsExists = true;
     todayNews = window.newsData[formattedDate];
     currentIndex = 0;
     $('#news-headline').text(todayNews[currentIndex]['headline']);
-    console.log(todayNews);
     $('#news-headline').attr("class", "text");
+
+    console.log("News headlines found:");
+    console.log(todayNews);
 }
 
 function populateNews() {
+    if (newsLoaded) return;
+
     if (!window.newsData) {
         console.log("No news data found");
         return;
     }
+
+    console.log("Populating news...")
 
     Object.keys(window.newsData).sort().reverse().forEach((key) => {
         var dateTableHeader = "<tr id='newsdate-" + key + "'><th>" + key + "</th></tr>";
@@ -104,9 +111,11 @@ function populateNews() {
         $("[id='newsdesc-" + key + "']").toggle();
     });
 
-    today = new Date();
-    fillNewsBar(today);
+    // fillNewsBar(window.day);
     cycleNews();
+    newsLoaded = true;
+
+    console.log("News populated.");
 }
 
 function datediff(d1, d2) {
@@ -115,8 +124,8 @@ function datediff(d1, d2) {
 
 function setNewsToCurrDate() {
 
-    var diff = datediff(window.day, today);
-    console.log(diff);
+    var diff = datediff(window.day, getCurrentDate());
+    // console.log(diff);
 
     var hide_date = new Date(window.day);
 

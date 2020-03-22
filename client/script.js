@@ -60,11 +60,13 @@ const redrawMap = (id) => {
 
     var date = formatDate(window.day);
     // if there no data for date, get latest data
+    window.keyPressed = true; // to prevent reupdating
     while (!window.data[date]) {
       prevDay();
       $("#svgMap .svgMap-map-wrapper").remove();
       date = formatDate(window.day);
     }
+    window.keyPressed = false; // allow reupdating
 
     const first = Object.keys(window.data)[0]
     const todayData = window.data ? window.data[first] : {}
@@ -88,7 +90,7 @@ const redrawMap = (id) => {
           },
           active: {
             visible: true,
-            name: 'Total Infected',
+            name: 'Total Active Cases',
             format: '{0}',
             thousandSeparator: ',',
             thresholdMax: 100000,
@@ -96,7 +98,7 @@ const redrawMap = (id) => {
           },
           new_cases: {
             visible: true,
-            name: 'New Infected',
+            name: 'New Active Cases',
             format: '{0}',
             thousandSeparator: ',',
             thresholdMax: 100000,
@@ -379,14 +381,8 @@ var useTotalCases = true;
 $(document).ready(function() {
 
   $("#toggle-infected").click((e) => {
-    if (useTotalCases == true) {
-      useTotalCases = false;
-      $("[id^='toggle-infected-'").toggleClass("toggle-infected-disable");
-    }
-    else {
-      useTotalCases = true;
-      $("[id^='toggle-infected-'").toggleClass("toggle-infected-disable");
-    }
+    $("[id^='toggle-infected-'").toggleClass("toggle-infected-disable");
+    useTotalCases = !useTotalCases;
     update();
   });
 
@@ -425,7 +421,7 @@ const updateSelectedCountry = (date) => {
   const name = window.map.countries[selectedCountry];
   const flag = `https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/${selectedCountry.toLowerCase()}.svg`;
   let infected, dead, population;
-  if (window.data[date][selectedCountry]) {
+  if (window.data[date] && window.data[date][selectedCountry]) {
     infected = getInfectedCount(date, selectedCountry);
     dead = window.data[date][selectedCountry]['total_deaths'];
     population = window.data[date][selectedCountry]['population'];
@@ -438,6 +434,14 @@ const updateSelectedCountry = (date) => {
 }
 
 const updateWorldData = (date) => {
+  // check if data exists
+  if (!window.data[date]) {
+    window.world_infected = 'No data';
+    window.world_dead = 'No data';
+    window.world_population = 7771104755;
+    return;
+  }
+
   // populate world data
   window.world_infected = getInfectedCount(date, 'WR');
   window.world_dead = data[date]['WR']['total_deaths'];
@@ -445,23 +449,36 @@ const updateWorldData = (date) => {
 }
 
 const update = () => {
-  var date = formatDate(window.day);
 
   if (data_loaded &&
       news_loaded &&
       ports_loaded) {
-    redrawMap("svgMap");
+
+    console.log("Updating...");
+    console.log(window.day);
+
+    redrawMap("svgMap"); // will cycle back date as necessary
+
+    console.log("Latest date with data:");
+    console.log(window.day);
+
+    var date = formatDate(window.day);
+
     attachHandlers();
     updateWorldData(date);
     updateSelectedCountry(date);
+    populateNews();
     fillNewsBar(date);
     setNewsToCurrDate();
+
+    console.log("Finished updating!");
   }
 }
 
 var data_loaded = false;
 socket.on('load_finish', (data) => {
-  console.log(data)
+  console.log("Data loaded.");
+  console.log(data);
   window.data = data
   
   data_loaded = true;
@@ -471,9 +488,9 @@ socket.on('load_finish', (data) => {
 
 var news_loaded = false;
 socket.on('news_loaded', (data) => {
+  console.log("News loaded.");
   console.log(data);
   window.newsData = data;
-  populateNews();
 
   news_loaded = true;
   update();
@@ -481,6 +498,7 @@ socket.on('news_loaded', (data) => {
 
 var ports_loaded = false;
 socket.on('ports_loaded', (data) => {
+  console.log("Ports loaded.");
   window.portData = data;
 
   ports_loaded = true;
@@ -504,7 +522,8 @@ const attachHandlers = () => {
     updateSelectedCountry(date);
   });
 
-  $('.svgMap-map-wrapper').on("click", (e) => {
-    fill(icon, "World", window.world_infected, window.world_dead, window.world_population);
+  $('.svgMap-map-wrapper').on("click touchstart", (e) => {
+    selectedCountry = 'WR';
+    updateSelectedCountry(formatDate(window.day));
   });
 }
