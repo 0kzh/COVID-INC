@@ -228,7 +228,7 @@ ShadowViewport.prototype.init = function(viewport, options) {
   this.options = options;
 
   // State cache
-  this.originalState = { zoom: 1, x: 0, y: 0 };
+  this.originalState = { zoom: window.ctm ? window.ctm.a : 1, x: 0, y: 0 };
   this.activeState = { zoom: 1, x: 0, y: 0 };
 
   this.updateCTMCached = Utils.proxy(this.updateCTM, this);
@@ -243,8 +243,7 @@ ShadowViewport.prototype.init = function(viewport, options) {
   this.cacheViewBox();
 
   // Process CTM
-  var newCTM = this.processCTM();
-
+  var newCTM = window.ctm ? window.ctm : this.processCTM();
   // Update viewport CTM and cache zoom and pan
   this.setCTM(newCTM);
 
@@ -712,7 +711,6 @@ SvgPanZoom.prototype.init = function(svg, isClipPath, options) {
   );
   this.width = boundingClientRectNormalized.width;
   this.height = boundingClientRectNormalized.height;
-
   // Init shadow viewport
   this.viewport = ShadowViewport(
     SvgUtils.getOrCreateViewport(this.svg, isClipPath, this.options.viewportSelector),
@@ -1818,6 +1816,7 @@ module.exports = {
         ")";
 
     window.transform = s;
+    window.ctm = matrix;
 
     const els = document.getElementsByClassName("svg-pan-zoom_viewport")
     // update all map images
@@ -3047,7 +3046,7 @@ svgMap.prototype.createMap = function () {
 
   // Expose instance
   var me = this;
-
+  console.log("b4:" + window.transform)
   // Init pan zoom
   this.mapPanZoom = svgPanZoom(this.mapImage, {
     zoomEnabled: true,
@@ -3076,9 +3075,11 @@ svgMap.prototype.createMap = function () {
       }
     }
   });
+  console.log("af:" + window.transform)
 
   // Init pan zoom
   this.mapPanZoom.zoom(this.options.initialZoom);
+  
 
   // Initial zoom statuses
   this.setControlStatuses();
