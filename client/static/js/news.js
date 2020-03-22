@@ -5,7 +5,7 @@ $(document).ready(function() {
     $(".news-button").click((e) => {
         // $('#news-modal').css("transform","translate(0,0)");
         $("#news-modal").show();
-        $(".container").hide();
+        // $(".container").hide();
         // console.log("News click");
     });
 
@@ -23,7 +23,7 @@ $(document).ready(function() {
         // $('#news-modal').css("transform","translate(0,-100px)");
         // $("#news-modal").fadeOut(400);
         $("#news-modal").hide();
-        $(".container").show();
+        // $(".container").show();
     }
 });
 

@@ -1,8 +1,11 @@
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
   padding: 0;
-  font-family: "Nunito";
+  font-family: "Roboto", sans-serif;
   color:#1f1c1c;
   font-size:1em;
   -webkit-font-smoothing: antialiased; /* This needs to be set or some font faced fonts look bold on Mac in Chrome/Webkit based browsers. */
@@ -179,17 +182,14 @@ body {
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: absolute; /* Stay in place */
-  z-index: 100; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 50%;
+  height: 60%;
   overflow: none; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
   transition: transform 0.4s ease;
 }
 
@@ -197,13 +197,13 @@ body {
 .modal-header {
   padding: 12px 16px;
   font-size: 2rem;
-  background-color: #25A6AA;
+  background-color: rgba(0,0,0,0.8);
   color: white;
 }
 
 /* Modal Body */
 .modal-body {
-  height: calc(100% - 32px - 32px - 2rem - 1rem);
+  height: 100%;
   overflow: scroll;
 }
 .modal-body-padding {
@@ -217,6 +217,7 @@ body {
 }
 
 #news-headlines td, #news-headlines th {
+  width: 100vw;
   border: 1px solid #ddd;
   padding: 16px;
 }
@@ -230,7 +231,7 @@ body {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #22B6B6;
+  background-color: rgba(0,0,0, 0.8);
   color: white;
 }
 
@@ -260,7 +261,6 @@ body {
 /* Modal Content */
 .modal-content {
   position: relative;
-  background-color: #fefefe;
   margin: 0;
   padding: 0;
   border: 1px solid #888;
@@ -288,7 +288,7 @@ body {
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #aaa;
   text-decoration: none;
   cursor: pointer;
 }
