@@ -135,11 +135,15 @@ const prevDay = () => {
 const nextDay = () => {
     const disabled = $("#next-day").hasClass("disabled");
     const start = window.day.getDate();
+    var succeeded = true;
     if (!disabled && window.day instanceof Date) {
         window.day.setDate(window.day.getDate() + 1);
         updateClock();
         if (!window.keyPressed) {
             try {
+                if (!window.data[formatDate(window.day)]) {
+                    succeeded = false;
+                }
                 update();
             } catch (err) {
                 return false;
@@ -149,7 +153,8 @@ const nextDay = () => {
     updateSlider();
     // console.log("start: " + start);
     // console.log("end: " + window.day.getDate())
-    return true;
+
+    return succeeded;
 }
 
 const currentDay = () => {
