@@ -166,11 +166,11 @@ body {
 
 @keyframes slide {
   from { left:100%; transform: translate(0, 0); }
-  to { left: -10%; transform: translate(-100%, 0); }
+  to { left: -25%; transform: translate(-100%, 0); }
 }
 @-webkit-keyframes slide {
   from { left:100%; transform: translate(0, 0); }
-  to { left: -10%; transform: translate(-100%, 0); }
+  to { left: -25%; transform: translate(-100%, 0); }
 }
 
 .marquee { 
