@@ -22,6 +22,20 @@
 </head>
 
 <body id="device-orientation">
+  <div id="intro-modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3>☣️ Covid Inc is a real-time visualization of the COVID-19 outbreak on a Plague Inc. interface.</h3>
+
+        <p>🗺 Hover or click on a country to see its statistics</p>
+        <p>📰 Click on the news bar above to see detailed news for that day</p>
+        <p>🕓 Use the timeline controls, or arrow keys to look through previous days</p>
+        <div id="intro-modal-close" class="close"> Let's Go</div>
+      </div>
+    </div>
+  </div>
 
   <!-- The Modal -->
   <div id="news-modal" class="modal">
@@ -36,7 +50,6 @@
         <table id="news-headlines"></table>
       </div>
     </div>
-
   </div>
 
   <!-- The Modal -->
@@ -50,19 +63,23 @@
       </div>
       <div class="modal-body">
         <div class="credits-modal-body"> 
+          <h3>☣️ Covid Inc is a real-time visualization of the COVID-19 outbreak on a Plague Inc. interface.</h3>
+
+          <p>🗺 Hover or click on a country to see its statistics</p>
+          <p>📰 Click on the news bar above to see detailed news for that day</p>
+          <p>🕓 Use the timeline controls, or use arrow keys to look through previous days</p>
+
+          <p><b>Data Sources:</b></p>
+          Country data: <a href="https://www.worldometers.info/coronavirus/">
+            https://www.worldometers.info/coronavirus/
+          </a><br>
+          News: <a href="https://www.pharmaceutical-technology.com/news/coronavirus-timeline/">
+            https://www.pharmaceutical-technology.com/news/coronavirus-timeline/
+          </a><br>
+
           COVID-INC was created by: <br>
           &nbsp; Kelvin Zhang and<br>
           &nbsp; William Qin<br>
-          <br>
-          Data Sources:<br>
-          &nbsp; Coronavirus data - 
-          <a href="https://www.worldometers.info/coronavirus/">
-            https://www.worldometers.info/coronavirus/
-          </a><br>
-          &nbsp; News headlines - 
-          <a href="https://www.pharmaceutical-technology.com/news/coronavirus-timeline/">
-            https://www.pharmaceutical-technology.com/news/coronavirus-timeline/
-          </a><br>
           <br>
           Built with:<br>
           &nbsp; SVG Map -
@@ -197,6 +214,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="static/js/screenfull.min.js"></script>
+<script src="static/js/js.cookie.min.js"></script>
 <script src="static/js/hammer.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="static/js/init.js"></script>
@@ -204,6 +222,7 @@
 <script src="static/js/clock.js"></script>
 <script src="static/js/bindings.js"></script>
 <script src="static/js/progress.js"></script>
+<script src="static/js/intro.js"></script>
 <script src="static/js/news.js"></script>
 <script src="static/js/credits.js"></script>
 <script src="script.js"></script>

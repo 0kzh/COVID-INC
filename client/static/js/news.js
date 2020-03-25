@@ -4,8 +4,8 @@ $(document).ready(function() {
 
     $(".news-button").click((e) => {
         // $('#news-modal').css("transform","translate(0,0)");
+        $(".modal").hide();
         $("#news-modal").show();
-        $("#credits-modal").hide();
         // $(".container").hide();
         // console.log("News click");
     });
