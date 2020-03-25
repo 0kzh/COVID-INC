@@ -218,6 +218,7 @@ const toggleControls = () => {
 const reset = () => {
     clearInterval(window.timer);
     window.timer = null;
+    fillNewsBar(window.day);
     $("#play-button").addClass("fa-play");
     $("#play-button").removeClass("fa-pause");
 }

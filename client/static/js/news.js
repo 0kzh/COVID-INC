@@ -30,14 +30,11 @@ $(document).ready(function() {
 
 var todayNews = [];
 var currentIndex = 0;
-var newsExists = false;
 
 var newsLoaded = false;
 
 function cycleNews() {
-    if (newsExists) {
-        $('#news-headline').text(todayNews[currentIndex]['headline']);
-    }
+    $('#news-headline').text(todayNews[currentIndex]['headline']);
     currentIndex += 1;
     if (currentIndex >= todayNews.length) {
         currentIndex = 0;
@@ -46,16 +43,27 @@ function cycleNews() {
 
 const resetNews = () => {
     console.log("Resetting news scroll...");
+    if (window.timer) {
+        $('#news-headline').removeClass("text");
+        cycleNews();
+        return;
+    }
+
+    if (window.newsTimerDelay) {
+        clearTimeout(window.newsTimerDelay);
+        window.newsTimerDelay = null;
+    }
+
     $('#news-headline').text("");
     $('#news-headline').removeClass("text");
-    setTimeout(() => {  
+    window.newsTimerDelay = setTimeout(() => {  
         $('#news-headline').addClass("text"); 
         cycleNews();
         clearInterval(window.newsTimer);
         window.newsTimer = setInterval(() => {
             cycleNews();
         }, 10000);
-    }, 10);
+    }, 800);
 }
 
 function isValidDate(date) {
@@ -73,19 +81,24 @@ function fillNewsBar(date) {
     else formattedDate = date;
 
     if (!window.newsData[formattedDate]) {
-        $('#news-headline').text("No news today");
-        newsExists = false;
-        console.log("No news today");
-        return;
+        todayNews = [
+            {
+                headline: "No news today",
+                text: ""
+            }
+        ];
+
+        console.log("No news today:");
+    }
+    else {
+        todayNews = window.newsData[formattedDate];
+
+        console.log("News headlines found:");
     }
 
-    newsExists = true;
-    todayNews = window.newsData[formattedDate];
     currentIndex = 0;
-    resetNews();
-
-    console.log("News headlines found:");
     console.log(todayNews);
+    resetNews();
 }
 
 function populateNews() {

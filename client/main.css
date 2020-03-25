@@ -165,12 +165,12 @@ body {
 }
 
 @keyframes slide {
-  from { left:100%; transform: translate(0, 0); }
-  to { left: -25%; transform: translate(-100%, 0); }
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50vw - 100%)); }
 }
 @-webkit-keyframes slide {
-  from { left:100%; transform: translate(0, 0); }
-  to { left: -25%; transform: translate(-100%, 0); }
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50vw - 100%)); }
 }
 
 .marquee { 
@@ -188,6 +188,8 @@ body {
   position:absolute;
   top:0;
   font-size: 3vh;
+  /* min-width: 100%; */
+  left: 100%;
   white-space: nowrap;
   animation-name: slide;
   animation-duration: 10s;
