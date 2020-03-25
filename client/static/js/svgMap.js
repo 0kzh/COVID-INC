@@ -2994,6 +2994,7 @@ svgMap.prototype.createMap = function () {
 
     this.toggleFullscreen();
   }.bind(this));
+  
   this.mapWrapper.appendChild(fsButton);
 
   // Add map elements

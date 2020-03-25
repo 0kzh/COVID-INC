@@ -18,7 +18,6 @@
     gtag('config', 'UA-161831764-1');
   </script>
 
-  <!-- <link rel="manifest" href="manifest.json"> -->
 </head>
 
 <body id="device-orientation">
@@ -57,36 +56,31 @@
 
     <!-- Modal content -->
     <div class="modal-content">
-      <div class="modal-header">
-        <div id="credits-modal-close" class="close">&times;</div>
-        About
-      </div>
       <div class="modal-body">
+        <div id="credits-modal-close" class="close">&times;</div>
         <div class="credits-modal-body"> 
-          <h3>☣️ Covid Inc is a real-time visualization of the COVID-19 outbreak on a Plague Inc. interface.</h3>
+          <p>👨🏻‍💻<b>Created by:</b></p>
+          <ul>
+            <li><a href="https://kelvinzhang.ca/">Kelvin Zhang</a></li>
+            <li><a href="https://williamqin.com/">William Qin</a></li>
+          </ul>
 
-          <p>🗺 Hover or click on a country to see its statistics</p>
-          <p>📰 Click on the news bar above to see detailed news for that day</p>
-          <p>🕓 Use the timeline controls, or use arrow keys to look through previous days</p>
+          <p><b>📊 Sources:</b></p>
+          <ul>
+            <li>Country data: <a href="https://www.worldometers.info/coronavirus/">
+              Worldometers
+            </a><br></li>
+            <li>News: <a href="https://www.pharmaceutical-technology.com/news/coronavirus-timeline/">
+              Pharmaceutical Technology
+             </a></li>
+          </ul>
 
-          <p><b>Data Sources:</b></p>
-          Country data: <a href="https://www.worldometers.info/coronavirus/">
-            https://www.worldometers.info/coronavirus/
-          </a><br>
-          News: <a href="https://www.pharmaceutical-technology.com/news/coronavirus-timeline/">
-            https://www.pharmaceutical-technology.com/news/coronavirus-timeline/
-          </a><br>
-
-          COVID-INC was created by: <br>
-          &nbsp; Kelvin Zhang and<br>
-          &nbsp; William Qin<br>
-          <br>
-          Built with:<br>
-          &nbsp; SVG Map -
-          <a href="https://github.com/StephanWagner/svgMap">
-            https://github.com/StephanWagner/svgMap
-          </a><br>
-          &nbsp; PostgreSQL, AWS, Python, and JavaScript<br>
+          <p><b>🛠 Github:</b><br>
+            <ul>
+              <li><a href="https://github.com/Polunom/covid-inc">Main Repository</a></li>
+              <li><a href="https://github.com/Polunom/covid-inc-server">Data Scraper</a></li>
+            </ul>
+          </p>
         </div>
       </div>
     </div>
@@ -153,11 +147,6 @@
     </div>
 
     <div class="align-bot">
-      <!-- <div class="card card-disease">
-        DISEASE
-        <div class="red-bar"></div>
-      </div> -->
-
       <div class="card card-chamfer card-info">
         <div class="thumbnail"></div>
         <div class="content">
@@ -186,11 +175,6 @@
             <div class="percent-bar" id="healthy-bar"></div>
           </div>
         </div>
-      </div>
-    
-
-      <div class="card card-credits">
-        <i class="fas fa-info-circle"></i>
       </div>
     </div>
 
