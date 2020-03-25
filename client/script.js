@@ -348,7 +348,7 @@ const generatePoints = (country, infected, population) => {
 };
 
 const updatePoints = (country, infected, population) => {
-  const max = Object.keys(window.data)[0];
+  const max = Object.keys(window.data).sort().reverse()[0];
   const maxData = window.data ? window.data[max] : {};
   const parent = $(`g[country="${country}"]`)
   const children = parent.children();
