@@ -83,10 +83,10 @@ body {
 
 .card-credits {
   bottom: 0;
-  right: 10vh;
-  margin: 1vh;
+  right: 8vh;
+  margin: 0.5vh;
   padding: 0.5vh;
-  font-size: 7vh;
+  font-size: 6vh;
 
   cursor: pointer;
   color: rgba(200,200,200, 0.8);
