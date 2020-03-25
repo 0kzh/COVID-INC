@@ -177,7 +177,7 @@ body {
 
 .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-button:before {
   width: 3vh;
-  height: 0.4vh;
+  height: 0.5vh;
 }
 .svgMap-map-wrapper .svgMap-control-button.svgMap-zoom-in-button:after {
   width: 0.5vh;
