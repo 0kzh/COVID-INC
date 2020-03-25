@@ -1,5 +1,9 @@
 $(document).keydown(function(e) {
     switch(e.which) {
+        case 32: // space
+            playPause();
+            break;
+
         case 37: // left arrow key
             prevDay();
             window.keyPressed = true;

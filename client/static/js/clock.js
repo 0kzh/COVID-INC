@@ -222,15 +222,7 @@ const reset = () => {
     $("#play-button").removeClass("fa-pause");
 }
 
-$("#first-day").click((e) => {
-    firstDay();
-});
-
-$("#prev-day").click((e) => {
-    prevDay();
-});
-
-$("#play").click((e) => {
+const playPause = () => {
     if (!window.timer) {
         $("#play-button").removeClass("fa-play");
         $("#play-button").addClass("fa-pause");
@@ -247,6 +239,18 @@ $("#play").click((e) => {
     } else {
         reset();
     }    
+}
+
+$("#first-day").click((e) => {
+    firstDay();
+});
+
+$("#prev-day").click((e) => {
+    prevDay();
+});
+
+$("#play").click((e) => {
+    playPause();
 });
 
 $("#next-day").click((e) => {

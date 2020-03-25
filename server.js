@@ -91,9 +91,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('get_news', function() {
-    console.log("getting news");
     getNews((json) => {
-      console.log(json);
       socket.json.emit('news_loaded', json);
     });
   });

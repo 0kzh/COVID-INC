@@ -278,7 +278,7 @@ const generatePoints = (country, infected, population) => {
     // infected = population; // max dots
 
     // make it look nice - scale by area, infected, and population
-    var numberDots = (Math.sqrt(area)/1000) * infected / Math.log(population);
+    var numberDots = (Math.sqrt(area)/500) * infected / Math.log(population);
     // var numberDots = 30000; // stress test
     if (numberDots > area/12)
     {
