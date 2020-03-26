@@ -43,15 +43,16 @@ function cycleNews() {
 
 const resetNews = () => {
     console.log("Resetting news scroll...");
-    if (window.timer) {
-        $('#news-headline').removeClass("text");
-        cycleNews();
-        return;
-    }
 
     if (window.newsTimerDelay) {
         clearTimeout(window.newsTimerDelay);
         window.newsTimerDelay = null;
+    }
+
+    if (window.timer) {
+        $('#news-headline').removeClass("text");
+        cycleNews();
+        return;
     }
 
     $('#news-headline').text("");
@@ -62,7 +63,7 @@ const resetNews = () => {
         clearInterval(window.newsTimer);
         window.newsTimer = setInterval(() => {
             cycleNews();
-        }, 10000);
+        }, 12000);
     }, 800);
 }
 

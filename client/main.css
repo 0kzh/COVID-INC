@@ -192,11 +192,11 @@ body {
   left: 100%;
   white-space: nowrap;
   animation-name: slide;
-  animation-duration: 10s;
+  animation-duration: 12s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   -webkit-animation-name: slide;
-  -webkit-animation-duration: 10s;
+  -webkit-animation-duration: 12s;
   -webkit-animation-timing-function:linear;
   -webkit-animation-iteration-count: infinite;
 }

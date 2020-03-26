@@ -236,7 +236,7 @@ const playPause = () => {
             } else {
                 reset();
             }
-        }, 200);
+        }, 800);
     } else {
         reset();
     }    
