@@ -1,8 +1,8 @@
 const formatDate = (date) => {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+        month = '' + (d.getUTCMonth() + 1),
+        day = '' + d.getUTCDate(),
+        year = d.getUTCFullYear();
   
     if (month.length < 2) 
         month = '0' + month;
@@ -177,7 +177,7 @@ const currentDay = () => {
 const nDaysfromStart = (days) => {
     const offset = days*24*60*60*1000;
 
-    const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
+    const first = new Date(Date.UTC(2020, 0, 29, 23, 59, 59));
     const target = new Date(first.getTime() + offset);
     window.day = target;
     updateClock();
