@@ -34,7 +34,7 @@ const isPresentDay = () => {
 }
 
 const isAtStart = () => {
-    var startDate = new Date(Date.UTC(2020, 0, 29, 23, 59, 59));
+    var startDate = new Date(Date.UTC(2020, 1, 3, 23, 59, 59));
     startDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
     startDate = startDate.setHours(0,0,0,0);
 
@@ -105,7 +105,7 @@ updateClock();
 const firstDay = () => {
     const disabled = $("#first-day").hasClass("disabled");
     if (!disabled && window.day instanceof Date) {
-        const first = new Date(Date.UTC(2020, 0, 29, 23, 59, 59));
+        const first = new Date(Date.UTC(2020, 1, 3, 23, 59, 59));
         window.day = first;
         updateClock();
         if (!window.keyPressed) {
@@ -137,7 +137,7 @@ const nextDay = () => {
     const start = window.day.getDate();
     var succeeded = true;
     if (!disabled && window.day instanceof Date) {
-        window.day.setDate(window.day.getDate() + 1);
+        window.day.setDate(window.day.getDate() + 7);
         updateClock();
         if (!window.keyPressed) {
             try {
@@ -175,9 +175,9 @@ const currentDay = () => {
 }
 
 const nDaysfromStart = (days) => {
-    const offset = days*24*60*60*1000;
+    const offset = days*7*24*60*60*1000;
 
-    const first = new Date(Date.UTC(2020, 0, 29, 23, 59, 59));
+    const first = new Date(Date.UTC(2020, 1, 3, 23, 59, 59));
     const target = new Date(first.getTime() + offset);
     window.day = target;
     updateClock();
@@ -204,9 +204,9 @@ const initSlider = () => {
   
 const updateSlider = () => {
     const day = window.day;
-    const first = new Date(Date.UTC(2020, 0, 29, 0, 0, 0));
-    const one_day = 1000 * 60 * 60 * 24 
-    const diff = Math.round(day.getTime() - first.getTime()) / one_day;
+    const first = new Date(Date.UTC(2020, 1, 3, 0, 0, 0));
+    const one_week = 1000 * 60 * 60 * 24 * 7
+    const diff = Math.round(day.getTime() - first.getTime()) / one_week;
     $("#slider").val(diff);
 }
 

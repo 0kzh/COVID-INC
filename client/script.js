@@ -85,7 +85,7 @@ const redrawMap = (id) => {
             name: 'Total Cases',
             format: '{0}',
             thousandSeparator: ',',
-            thresholdMax: 100000,
+            thresholdMax: 10000000,
             thresholdMin: 0
           },
           active: {
@@ -93,7 +93,7 @@ const redrawMap = (id) => {
             name: 'Total Active Cases',
             format: '{0}',
             thousandSeparator: ',',
-            thresholdMax: 100000,
+            thresholdMax: 10000000,
             thresholdMin: 0
           },
           new_cases: {
@@ -101,7 +101,7 @@ const redrawMap = (id) => {
             name: 'New Active Cases',
             format: '{0}',
             thousandSeparator: ',',
-            thresholdMax: 100000,
+            thresholdMax: 10000000,
             thresholdMin: 0
           },
           total_deaths: {
@@ -109,7 +109,7 @@ const redrawMap = (id) => {
             name: 'Total Deaths',
             format: '{0}',
             thousandSeparator: ',',
-            thresholdMax: 100000,
+            thresholdMax: 10000000,
             thresholdMax: 0
           },
           new_deaths: {
@@ -117,7 +117,7 @@ const redrawMap = (id) => {
             name: 'New Deaths',
             format: '{0}',
             thousandSeparator: ',',
-            thresholdMax: 100000,
+            thresholdMax: 10000000,
             thresholdMin: 0
           },
           recovered: {
@@ -125,7 +125,7 @@ const redrawMap = (id) => {
             name: 'Total Recovered',
             format: '{0}',
             thousandSeparator: ',',
-            thresholdMax: 100000,
+            thresholdMax: 10000000,
             thresholdMax: 0
           },
           log_total_cases: {
@@ -133,7 +133,7 @@ const redrawMap = (id) => {
             name: 'Log Total Cases',
             format: '{0} Total Cases',
             thousandSeparator: ',',
-            thresholdMax: 100,
+            thresholdMax: 150,
             thresholdMin: 0
           }
         },
@@ -278,7 +278,7 @@ const generatePoints = (country, infected, population) => {
     // infected = population; // max dots
 
     // make it look nice - scale by area, infected, and population
-    var numberDots = (Math.sqrt(area)/1000) * infected / Math.log(population);
+    var numberDots = infected / (100 * Math.log(population));
     // var numberDots = 30000; // stress test
     if (numberDots > area/12)
     {
@@ -479,7 +479,7 @@ var data_loaded = false;
 socket.on('load_finish', (data) => {
   console.log("Data loaded.");
   console.log(data);
-  window.data = data
+  window.data = Object.assign({}, window.data, data);
   
   data_loaded = true;
   initSlider();
